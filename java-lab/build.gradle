@@ -29,3 +29,13 @@ application {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+tasks.register('runEffectiveJava', JavaExec) {
+    group = 'application'
+    description = 'Run Effective Java learning chapters 01 and 02'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'dev.study.javalab.effectiveJava.EffectiveJavaExample'
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}

@@ -54,3 +54,19 @@ JDK 21이 필요하다. macOS에서는 필요에 따라 `export JAVA_HOME=$(/usr
 
 - [Java 공부 목표](../01-Java-기본기와-실행-원리/공부%20목표.md)
 - [전체 공부 목표](../공부%20목표.md)
+
+## 이펙티브 Java 학습 01·02 실행
+
+`dev.study.javalab.effectiveJava` 아래에서 우리 인덱스 순서대로 실습한다. `chapter01`과 `chapter02`는 책의 장 번호가 아니라 학습 순서이며, 각각 아이템 49와 54에 해당한다.
+
+- `chapter01/Product`: 가격과 노출 기간을 모두 검증한 후 변경한다.
+- `chapter01/PageSize`: 페이지 크기의 허용 범위 1~100을 검사한다.
+- `chapter02/ProductCatalog`: 빈 결과, 조회 실패, 목록 복사와 수정 가능 여부를 구분한다. 외부 저장소 대신 ProductSource 인터페이스로 조회를 모의한다.
+- 같은 패키지의 테스트는 경계값과 실패 후 상태, 빈 결과의 수정 가능 여부, 원소 공유를 검증한다.
+
+```sh
+./gradlew runEffectiveJava
+./gradlew test --tests 'dev.study.javalab.effectiveJava.*'
+```
+
+`run`은 기존 컬렉션 예제를 실행한다. 새 코드는 순수 Java 실습이며 HTTP·DB·트랜잭션 검증은 포함하지 않는다.
