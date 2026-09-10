@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: commerce-study
+  profiles:
+    default: local
+  datasource:
+    url: ${STUDY_DB_URL:jdbc:postgresql://localhost:15432/commerce_study}
+    username: ${STUDY_DB_USER:study}
+    password: ${STUDY_DB_PASSWORD:study_local}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  flyway:
+    locations: classpath:db/migration
+  threads:
+    virtual:
+      enabled: false
+server:
+  address: 127.0.0.1
+  port: ${STUDY_APP_PORT:18080}
+  error:
+    include-message: never
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: never
+study:
+  security:
+    admin-username: ${STUDY_ADMIN_USERNAME}
+    admin-password: ${STUDY_ADMIN_PASSWORD}

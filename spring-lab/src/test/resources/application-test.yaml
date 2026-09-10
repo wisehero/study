@@ -1,0 +1,7 @@
+spring:
+  flyway:
+    locations: classpath:db/migration
+study:
+  security:
+    admin-username: test-admin
+    admin-password: test-password

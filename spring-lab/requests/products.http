@@ -1,0 +1,31 @@
+@baseUrl = http://127.0.0.1:18080
+
+### 상태 확인
+GET {{baseUrl}}/actuator/health
+
+### 공개 상품 목록 (로컬 샘플 ACTIVE 2개)
+GET {{baseUrl}}/api/v1/products?page=0&size=20
+
+### 공개 상품 상세
+GET {{baseUrl}}/api/v1/products/00000000-0000-0000-0000-000000000001
+
+### 비공개 상품은 ID를 알아도 404
+GET {{baseUrl}}/api/v1/products/00000000-0000-0000-0000-000000000003
+
+### 변경 요청에 필요한 CSRF 토큰. IDE HTTP 클라이언트가 쿠키를 유지해야 한다.
+GET {{baseUrl}}/api/v1/csrf
+
+> {% client.global.set("csrfToken", response.body.token); %}
+
+### 상품 등록. 같은 SKU를 반복하면 409.
+POST {{baseUrl}}/api/v1/admin/products
+Authorization: Basic study-admin study-local-password
+X-CSRF-TOKEN: {{csrfToken}}
+Content-Type: application/json
+
+{
+  "sku": "MY-FIRST-PRODUCT",
+  "name": "첫 번째 연습 상품",
+  "price": 10000,
+  "status": "ACTIVE"
+}
