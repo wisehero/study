@@ -81,3 +81,13 @@ JDK 21이 필요하다. macOS에서는 필요에 따라 `export JAVA_HOME=$(/usr
 ```
 
 EnumExampleTest의 세 테스트에서 정상 전이·재요청, 실패 후 상태 유지, 외부 코드 변환을 확인한다.
+
+## 학습 05: 접근 범위와 내부 상태 보호
+
+`effectiveJava.chapter05`의 Product와 PriceValidator 두 파일을 읽고 AccessExampleTest의 두 테스트로 검증한다. private 필드, package-private 보조 클래스, 수정 불가능한 목록 스냅샷이 핵심이다. 다른 chapter의 Product와는 독립된 예제다.
+
+```sh
+./gradlew test --tests 'dev.study.javalab.effectiveJava.chapter05.*'
+```
+
+별도 main은 추가하지 않았다. 테스트의 private 필드 접근 주석을 해제하면 컴파일 오류를 직접 확인할 수 있다.
