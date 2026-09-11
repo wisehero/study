@@ -91,3 +91,13 @@ EnumExampleTest의 세 테스트에서 정상 전이·재요청, 실패 후 상�
 ```
 
 별도 main은 추가하지 않았다. 테스트의 private 필드 접근 주석을 해제하면 컴파일 오류를 직접 확인할 수 있다.
+
+## 학습 06: 실패를 숨기는 코드와 전달하는 코드
+
+`effectiveJava.chapter06/SearchExample`의 두 메서드를 비교하고 SearchExampleTest의 세 테스트를 읽는다. 실제 외부 연결 대신 람다로 검색 성공과 실패를 모의한다.
+
+```sh
+./gradlew test --tests 'dev.study.javalab.effectiveJava.chapter06.*'
+```
+
+정상 빈 결과와 조회 실패의 구분, 변환 예외의 원인 보존만 짧게 다룬다. 별도 main은 추가하지 않았다.
