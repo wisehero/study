@@ -7,6 +7,7 @@ import java.util.List;
 
 public class EffectiveJavaExample {
     public static void main(String[] args) {
+        dev.study.javalab.effectiveJava.chapter03.BoxingExample.main(args);
         var product = new Product(1000,
                 LocalDateTime.of(2026, 9, 10, 0, 0),
                 LocalDateTime.of(2026, 9, 20, 0, 0));

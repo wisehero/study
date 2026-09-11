@@ -32,7 +32,7 @@ tasks.named('test') {
 
 tasks.register('runEffectiveJava', JavaExec) {
     group = 'application'
-    description = 'Run Effective Java learning chapters 01 and 02'
+    description = 'Run Effective Java learning chapters 01, 02 and 03'
     classpath = sourceSets.main.runtimeClasspath
     mainClass = 'dev.study.javalab.effectiveJava.EffectiveJavaExample'
     javaLauncher = javaToolchains.launcherFor {
