@@ -71,3 +71,13 @@ JDK 21이 필요하다. macOS에서는 필요에 따라 `export JAVA_HOME=$(/usr
 ```
 
 `run`은 기존 컬렉션 예제를 실행한다. 새 코드는 순수 Java 실습이며 HTTP·DB·트랜잭션 검증은 포함하지 않는다.
+
+## 학습 04: 짧은 enum 실습
+
+`effectiveJava.chapter04`는 ProductStatus(상태 전이·외부 코드)와 Product(검증 후 변경) 두 파일로 구성한다. 이전 실습의 Product와는 독립된 예제다. 별도 main 대신 짧은 테스트를 따라가며 읽는다.
+
+```sh
+./gradlew test --tests 'dev.study.javalab.effectiveJava.chapter04.*'
+```
+
+EnumExampleTest의 세 테스트에서 정상 전이·재요청, 실패 후 상태 유지, 외부 코드 변환을 확인한다.
