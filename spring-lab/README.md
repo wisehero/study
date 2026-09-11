@@ -9,6 +9,7 @@ Java·Spring 학습 목표를 실제 코드로 연습하는 로컬 백엔드 API
 - 관리자 상품 등록, 공개 상품 목록·상세 조회, 입력 검증, DB 중복 제약, 공통 오류 응답을 제공한다.
 - 관리자 인증과 권한 검사, 변경 요청 위조를 방지하는 CSRF 검증을 적용했다.
 - 로컬 상품 샘플, 실제 PostgreSQL 통합 테스트, HTTP 요청 예제와 실행 확인 도구를 포함한다.
+- 주문 저장·재고 차감의 정상 처리, 예외 전달, 예외를 잡는 경우를 비교하는 [트랜잭션 실습](../03-트랜잭션과-데이터-정합성/학습%20노트.md)을 테스트 코드로 제공한다.
 - 주문·재고·전시·랭킹·검색은 확장할 패키지와 과제를 준비한 상태다. 고객 화면, 검색 엔진, 랭킹 집계는 아직 구현하지 않았다.
 
 순수 Java 개념 실습은 [Java Lab](../java-lab/README.md)에서 진행한다. 이 프로젝트는 Spring·HTTP·DB 연동에 집중하며 Java Lab과 독립적으로 빌드한다.
@@ -54,6 +55,8 @@ IntelliJ에서는 이 폴더를 Gradle 프로젝트로 열고 Gradle JVM을 21�
 ./gradlew test
 ./gradlew bootJar
 ```
+
+트랜잭션 첫 실습만 실행하려면 `./gradlew test --tests 'dev.study.commerce.OrderTransactionTest'`를 사용한다.
 
 테스트는 Testcontainers가 만드는 별도 PostgreSQL에서 실행한다. 로컬 Compose DB의 데이터를 지우거나 사용하지 않는다. Docker가 동작해야 하며 연결 실패 시 테스트를 건너뛰지 않고 실패한다. 테스트가 끝나면 테스트 컨테이너가 정리된다.
 
