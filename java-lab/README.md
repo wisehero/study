@@ -101,3 +101,13 @@ EnumExampleTest의 세 테스트에서 정상 전이·재요청, 실패 후 상�
 ```
 
 정상 빈 결과와 조회 실패의 구분, 변환 예외의 원인 보존만 짧게 다룬다. 별도 main은 추가하지 않았다.
+
+## 학습 12: 인터페이스 구현 교체
+
+`effectiveJava.chapter12`에서 `DiscountPolicy`의 두 구현인 `FixedDiscount`와 `PercentDiscount`를 같은 `OrderService`에 전달한다. 1,000원 할인과 10% 할인을 비교하고, `InterfaceExampleTest`에서 공통 계약과 경계값을 확인한다. 별도 main은 없으며 책의 아이템 20에 해당한다.
+
+```sh
+./gradlew test --tests 'dev.study.javalab.effectiveJava.chapter12.*'
+```
+
+[실습 기록](../01-Java-기본기와-실행-원리/이펙티브-Java/12-역할을%20인터페이스로%20정의/실습%20기록.md)에 읽는 순서와 검증 결과를 정리했다.
