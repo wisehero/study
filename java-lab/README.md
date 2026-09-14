@@ -16,7 +16,7 @@ JDK 21이 필요하다. macOS에서는 필요에 따라 `export JAVA_HOME=$(/usr
 
 ## 현재 제공하는 예제
 
-`collections/CollectionExample`은 값이 같은 상품 코드를 중복 제거하고 최초 등장 순서를 유지한다. `ProductCode`는 값 동등성을 제공하는 Java record다. Spring 앱의 상품 엔티티와 공유하는 모델이 아니라 언어 실습용 예제다.
+`collections/CollectionExample`은 값이 같은 상품 코드를 중복 제거하고 최초 등장 순서를 유지한다. `ProductCode`는 14·15번 실습에서 record를 일반 final 클래스로 전환했으며 equals와 hashCode를 직접 구현한다. Spring 앱의 상품 엔티티와 공유하는 모델이 아니라 언어 실습용 예제다.
 
 - `./gradlew run`으로 입력과 결과를 확인한다.
 - `CollectionExampleTest`로 값 동등성, 입력 목록과 결과의 분리, 빈 입력과 잘못된 코드 처리를 확인한다.
@@ -24,8 +24,8 @@ JDK 21이 필요하다. macOS에서는 필요에 따라 `export JAVA_HOME=$(/usr
 
 ## 첫 번째 실습
 
-1. `ProductCode`를 일반 클래스로 바꾸고 테스트 결과를 예상한다.
-2. equals와 hashCode를 직접 구현해 중복 판정이 어떤 계약에 의존하는지 확인한다.
+1. 일반 클래스로 전환한 `ProductCode`에서 equals와 hashCode를 읽고 기존 중복 제거 결과를 예상한다.
+2. `chapter14/EqualityExampleTest`와 `chapter15/HashExampleTest`에서 동등성 규약, 해시 불일치, 충돌과 가변 키의 영향을 확인한다.
 3. LinkedHashSet을 HashSet으로 바꾸고 순서에 관한 보장이 어떻게 달라지는지 설명한다. 우연히 같은 출력이 나오는 것을 순서 보장으로 판단하지 않는다.
 4. 입력 목록과 결과가 같은 가변 객체를 공유하는 예제로 확장하고, 얕은 복사와 깊은 복사의 차이를 기록한다.
 
@@ -111,3 +111,13 @@ EnumExampleTest의 세 테스트에서 정상 전이·재요청, 실패 후 상�
 ```
 
 [실습 기록](../01-Java-기본기와-실행-원리/이펙티브-Java/12-역할을%20인터페이스로%20정의/실습%20기록.md)에 읽는 순서와 검증 결과를 정리했다.
+
+## 학습 14·15: equals와 hashCode
+
+기존 `collections/ProductCode`를 공통으로 사용한다. `chapter14/EqualityExampleTest`는 동일성과 동등성, 다섯 규약과 입력 검증을 확인한다. `chapter15/HashExampleTest`는 HashSet·HashMap에서 동등한 키의 처리와 해시 계약 위반, 상수 해시값, 저장 후 키 변경을 비교한다. 문제가 있는 타입은 테스트 내부에만 둔다.
+
+```sh
+./gradlew test --tests 'dev.study.javalab.effectiveJava.chapter14.*' --tests 'dev.study.javalab.effectiveJava.chapter15.*'
+```
+
+[14번 실습 기록](../01-Java-기본기와-실행-원리/이펙티브-Java/14-객체%20동등성의%20기준/실습%20기록.md)과 [15번 실습 기록](../01-Java-기본기와-실행-원리/이펙티브-Java/15-동등성과%20해시의%20일관성/실습%20기록.md)에 실행 결과와 한계를 정리했다. 기존 `./gradlew run`으로도 중복 제거를 확인할 수 있다.

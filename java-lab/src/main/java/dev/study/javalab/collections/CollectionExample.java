@@ -13,6 +13,6 @@ public class CollectionExample {
         var input = List.of(new ProductCode("CREAM"), new ProductCode("TONER"), new ProductCode("CREAM"));
         System.out.println("입력: " + input);
         System.out.println("중복 제거: " + uniqueCodes(input));
-        System.out.println("실습: record를 일반 클래스로 바꾸면 중복 판정이 어떻게 달라지는지 확인하세요.");
+        System.out.println("실습: equals와 hashCode가 같은 상품 코드의 중복을 제거하는지 확인하세요.");
     }
 }
