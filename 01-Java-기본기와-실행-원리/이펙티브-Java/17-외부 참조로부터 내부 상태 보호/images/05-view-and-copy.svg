@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="735" viewBox="0 0 1200 735" role="img" aria-labelledby="title desc">
+<title id="title">05 · 읽기 전용 뷰는 원본을 보고, 복사본은 원소 구성을 유지한다</title><desc id="desc">original은 ArrayList&lt;String&gt;이다. view와 copy는 모두 추가·삭제·교체할 수 없다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}</style>
+<rect width="1200" height="735" fill="#ffffff"/>
+<text x="32" y="45" font-size="28" class="">05 · 읽기 전용 뷰는 원본을 보고, 복사본은 원소 구성을 유지한다</text>
+<text x="32" y="79" font-size="18" class="">original은 ArrayList&lt;String&gt;이다. view와 copy는 모두 추가·삭제·교체할 수 없다.</text>
+<text x="40" y="126" font-size="23" class="">처음: view와 copy 모두 [선크림]이 보임</text>
+<rect x="40" y="158" width="300" height="113" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="190" font-size="21" class="">view · 읽기 전용 뷰</text>
+<text x="58" y="223" font-size="19" class="">원본 L1을 읽음</text>
+<text x="58" y="251" font-size="19" class="">보이는 값: [선크림]</text>
+<rect x="445" y="158" width="310" height="85" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="463" y="190" font-size="21" class="">original · 원본 L1</text>
+<text x="463" y="223" font-size="19" class="">[0] → &quot;선크림&quot;</text>
+<rect x="860" y="158" width="300" height="85" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="878" y="190" font-size="21" class="">copy · 복사 목록 L2</text>
+<text x="878" y="223" font-size="19" class="">[0] → &quot;선크림&quot;</text>
+<path d="M340 217 H445" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="348" y="199" font-size="18" class="">참조</text>
+<text x="40" y="310" font-size="20" class="code">view = Collections.unmodifiableList(original);</text>
+<text x="40" y="345" font-size="20" class="code">copy = List.copyOf(original);</text>
+<path d="M32 375 H1168" stroke="#cbd5e1"/>
+<text x="40" y="420" font-size="23" class="code">original.clear(); 실행 후</text>
+<rect x="40" y="451" width="300" height="113" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="58" y="483" font-size="21" class="">같은 view</text>
+<text x="58" y="516" font-size="19" class="">원본 L1을 계속 읽음</text>
+<text x="58" y="544" font-size="19" class="">보이는 값: []</text>
+<rect x="445" y="451" width="310" height="85" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="463" y="483" font-size="21" class="">같은 original · L1</text>
+<text x="463" y="516" font-size="19" class="">[] · 원본이 비워짐</text>
+<rect x="860" y="451" width="300" height="85" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="878" y="483" font-size="21" class="">같은 copy · L2</text>
+<text x="878" y="516" font-size="19" class="">[0] → &quot;선크림&quot;</text>
+<path d="M340 510 H445" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="348" y="492" font-size="18" class="">참조</text>
+<text x="40" y="618" font-size="22" class="">view는 원본의 변경을 보여준다. copy는 복사할 때의 원소 구성을 유지한다.</text>
+<text x="40" y="661" font-size="18" class="">String 객체로 향하는 화살표는 생략했다. 가변 원소라면 copy도 원소 상태를 공유할 수 있다.</text>
+<text x="32" y="715" font-size="16" class="">화살표 = 참조 · L = 목록 · P = Product · S = String · 번호는 설명용 식별자이며 실제 주소가 아니다.</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="610" viewBox="0 0 1200 610" role="img" aria-labelledby="title desc">
+<title id="title">04 · 입력과 출력에서 각각 복사하면 내부 상태를 보호한다</title><desc id="desc">Product에는 String name만 있다. 목록과 Product는 복사하고, 불변 String은 공유해도 된다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}</style>
+<rect width="1200" height="610" fill="#ffffff"/>
+<text x="32" y="45" font-size="28" class="">04 · 입력과 출력에서 각각 복사하면 내부 상태를 보호한다</text>
+<text x="32" y="79" font-size="18" class="">Product에는 String name만 있다. 목록과 Product는 복사하고, 불변 String은 공유해도 된다.</text>
+<text x="40" y="137" font-size="24" class="">호출자의 입력</text>
+<text x="440" y="137" font-size="24" class="">Display 내부</text>
+<text x="840" y="137" font-size="24" class="">호출자가 받은 결과</text>
+<rect x="40" y="162" width="320" height="85" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="194" font-size="21" class="">외부 목록 L1</text>
+<text x="58" y="227" font-size="19" class="">[0] → P1</text>
+<rect x="440" y="162" width="320" height="85" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="458" y="194" font-size="21" class="">내부 목록 L2</text>
+<text x="458" y="227" font-size="19" class="">[0] → P2</text>
+<rect x="840" y="162" width="320" height="85" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="858" y="194" font-size="21" class="">반환 목록 L3</text>
+<text x="858" y="227" font-size="19" class="">[0] → P3</text>
+<rect x="40" y="331" width="320" height="85" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="58" y="363" font-size="21" class="">Product P1</text>
+<text x="58" y="396" font-size="19" class="">name = &quot;선크림&quot;</text>
+<path d="M200 247 V331" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="440" y="331" width="320" height="85" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="458" y="363" font-size="21" class="">Product P2</text>
+<text x="458" y="396" font-size="19" class="">name = &quot;선크림&quot;</text>
+<path d="M600 247 V331" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="840" y="331" width="320" height="85" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="858" y="363" font-size="21" class="">Product P3</text>
+<text x="858" y="396" font-size="19" class="">name = &quot;선크림&quot;</text>
+<path d="M1000 247 V331" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="382" y="185" font-size="23" class="">①</text>
+<text x="782" y="185" font-size="23" class="">②</text>
+<text x="40" y="465" font-size="22" class="">① 생성자: P1의 값으로 새 P2 생성   ② getter: P2의 값으로 새 P3 생성</text>
+<text x="40" y="510" font-size="21" class="">외부에서 P1 또는 P3의 이름을 바꿔도 내부 P2의 이름은 &quot;선크림&quot;으로 유지된다.</text>
+<text x="40" y="547" font-size="18" class="">세 목록이 가리키는 Product는 서로 다른 객체다. 수직 화살표는 각 목록의 원소 참조다.</text>
+<text x="32" y="590" font-size="16" class="">화살표 = 참조 · L = 목록 · P = Product · S = String · 번호는 설명용 식별자이며 실제 주소가 아니다.</text>
+</svg>

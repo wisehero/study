@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+<title id="title">01 · 객체 수정과 목록의 칸 교체는 다르다</title><desc id="desc">각 상황은 같은 초기 상태에서 별도로 실행한다. 원본 ArrayList를 List.copyOf로 복사한 예제다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}</style>
+<rect width="1200" height="820" fill="#ffffff"/>
+<text x="32" y="45" font-size="28" class="">01 · 객체 수정과 목록의 칸 교체는 다르다</text>
+<text x="32" y="79" font-size="18" class="">각 상황은 같은 초기 상태에서 별도로 실행한다. 원본 ArrayList를 List.copyOf로 복사한 예제다.</text>
+<text x="32" y="128" font-size="22" class="code">A. product.setName(&quot;로션&quot;)</text>
+<rect x="40" y="156" width="320" height="85" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="188" font-size="21" class="">원본 목록 L1</text>
+<text x="58" y="221" font-size="19" class="">[0] → P1</text>
+<rect x="40" y="271" width="320" height="85" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="303" font-size="21" class="">복사 목록 L2</text>
+<text x="58" y="336" font-size="19" class="">[0] → P1</text>
+<rect x="750" y="210" width="390" height="113" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="768" y="242" font-size="21" class="">공유 중인 Product P1</text>
+<text x="768" y="275" font-size="19" class="">name = &quot;로션&quot;</text>
+<text x="768" y="303" font-size="19" class="">같은 객체의 필드가 바뀜</text>
+<path d="M360 200 H560 V250 H750" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M360 315 H620 V290 H750" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="420" y="357" font-size="22" class="">복사 목록에서 읽어도 &quot;로션&quot;</text>
+<path d="M32 389 H1168" stroke="#cbd5e1"/>
+<text x="32" y="433" font-size="22" class="code">B. products.set(0, new Product(&quot;로션&quot;))</text>
+<rect x="40" y="465" width="320" height="85" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="497" font-size="21" class="">원본 목록 L1</text>
+<text x="58" y="530" font-size="19" class="">[0] → 새 P2</text>
+<rect x="750" y="465" width="390" height="85" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="768" y="497" font-size="21" class="">새 Product P2</text>
+<text x="768" y="530" font-size="19" class="">name = &quot;로션&quot;</text>
+<path d="M360 509 H750" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="596" width="320" height="85" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="628" font-size="21" class="">복사 목록 L2</text>
+<text x="58" y="661" font-size="19" class="">[0] → 기존 P1</text>
+<rect x="750" y="596" width="390" height="85" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="768" y="628" font-size="21" class="">기존 Product P1</text>
+<text x="768" y="661" font-size="19" class="">name = &quot;선크림&quot;</text>
+<path d="M360 640 H750" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="420" y="746" font-size="22" class="">복사 목록의 칸은 그대로 → &quot;선크림&quot;</text>
+<text x="32" y="800" font-size="16" class="">화살표 = 참조 · L = 목록 · P = Product · S = String · 번호는 설명용 식별자이며 실제 주소가 아니다.</text>
+</svg>

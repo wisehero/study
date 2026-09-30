@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">03 · 생성자에서만 복사하면 getter에 변경 경로가 남는다</title><desc id="desc">입력 목록과 Product를 복사한 뒤에도, 내부 Product를 그대로 반환하면 외부에서 수정할 수 있다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}</style>
+<rect width="1200" height="720" fill="#ffffff"/>
+<text x="32" y="45" font-size="28" class="">03 · 생성자에서만 복사하면 getter에 변경 경로가 남는다</text>
+<text x="32" y="79" font-size="18" class="">입력 목록과 Product를 복사한 뒤에도, 내부 Product를 그대로 반환하면 외부에서 수정할 수 있다.</text>
+<text x="40" y="128" font-size="22" class="">입력 복사 후: 외부 Product와 내부 Product가 분리됨</text>
+<rect x="40" y="155" width="320" height="85" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="187" font-size="21" class="">외부 목록 L1</text>
+<text x="58" y="220" font-size="19" class="">[0] → P1</text>
+<rect x="790" y="155" width="360" height="85" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="808" y="187" font-size="21" class="">외부 Product P1</text>
+<text x="808" y="220" font-size="19" class="">name = &quot;로션&quot;</text>
+<path d="M360 199 H790" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="290" width="320" height="85" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="322" font-size="21" class="">Display 내부 목록 L2</text>
+<text x="58" y="355" font-size="19" class="">[0] → P2</text>
+<rect x="790" y="290" width="360" height="85" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="808" y="322" font-size="21" class="">내부 Product P2</text>
+<text x="808" y="355" font-size="19" class="">name = &quot;선크림&quot;</text>
+<path d="M360 334 H790" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="425" y="277" font-size="20" class="">P1을 수정해도 P2는 유지</text>
+<path d="M32 407 H1168" stroke="#cbd5e1"/>
+<text x="40" y="452" font-size="22" class="">getter에서 return products; 하면 내부 참조가 다시 외부로 나감</text>
+<rect x="40" y="480" width="320" height="113" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="512" font-size="21" class="">호출자가 getter로 접근</text>
+<text x="58" y="545" font-size="19" class="">display.products()</text>
+<text x="58" y="573" font-size="19" class="">→ 내부 목록 L2</text>
+<rect x="790" y="480" width="360" height="113" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="808" y="512" font-size="21" class="">같은 내부 Product P2</text>
+<text x="808" y="545" font-size="19" class="">name = &quot;로션&quot;</text>
+<text x="808" y="573" font-size="19" class="">getter를 통해 변경됨</text>
+<path d="M360 535 H790" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="415" y="514" font-size="19" class="">get(0) → 내부 P2</text>
+<text x="40" y="651" font-size="23" class="code">display.products().get(0).setName(&quot;로션&quot;);</text>
+<text x="32" y="700" font-size="16" class="">화살표 = 참조 · L = 목록 · P = Product · S = String · 번호는 설명용 식별자이며 실제 주소가 아니다.</text>
+</svg>
