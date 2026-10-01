@@ -3,6 +3,12 @@ spring:
     name: commerce-study
   profiles:
     default: local
+  data:
+    redis:
+      host: ${STUDY_REDIS_HOST:localhost}
+      port: ${STUDY_REDIS_PORT:26379}
+      connect-timeout: 2s
+      timeout: 2s
   datasource:
     url: ${STUDY_DB_URL:jdbc:postgresql://localhost:15432/commerce_study}
     username: ${STUDY_DB_USER:study}
