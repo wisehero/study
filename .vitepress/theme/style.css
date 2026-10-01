@@ -1,0 +1,44 @@
+:root {
+  --vp-c-brand-1: #2563eb;
+  --vp-c-brand-2: #1d4ed8;
+  --vp-c-brand-3: #2563eb;
+  --vp-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+}
+.dark { --vp-c-brand-1: #93b4ff; --vp-c-brand-2: #adc6ff; }
+.vp-doc { font-size: 1rem; overflow-wrap: anywhere; }
+.vp-doc p, .vp-doc li { line-height: 1.85; }
+.vp-doc h1, .vp-doc h2, .vp-doc h3 { word-break: keep-all; overflow-wrap: anywhere; }
+.vp-doc table { width: 100%; }
+.vp-doc img { display: block; max-width: 100%; height: auto; margin: 1.5rem auto; }
+.study-image { display: block; max-width: 100%; overflow-x: auto; padding: 0.5rem; border: 1px solid var(--vp-c-divider); border-radius: 8px; }
+.vp-doc .study-image img { max-width: none; margin: 0; }
+.mermaid-diagram { margin: 1.5rem 0; overflow-x: auto; padding: 1rem; background: var(--vp-c-bg-soft); border-radius: 8px; }
+.mermaid-diagram svg { display: block; max-width: none !important; min-width: 420px; width: auto; margin: auto; }
+.mermaid-diagram pre { font-size: 0.875rem; }
+.study-home { max-width: 1080px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+.study-heading { margin-bottom: 2rem; }
+.study-label { color: var(--vp-c-brand-1); font-size: 0.875rem; font-weight: 700; letter-spacing: 0.08em; }
+.study-heading h1 { margin: 0.75rem 0; font-size: 2.5rem; line-height: 1.3; font-weight: 750; letter-spacing: -0.04em; }
+.study-description { color: var(--vp-c-text-2); font-size: 1rem; line-height: 1.75; }
+.study-shortcuts { margin-bottom: 2.5rem; padding: 1.25rem; border-left: 3px solid var(--vp-c-brand-1); background: var(--vp-c-bg-soft); }
+.study-home h2 { font-size: 1.125rem; font-weight: 650; }
+.shortcut-links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; margin-top: 0.875rem; }
+.shortcut-links a { color: var(--vp-c-brand-1); text-decoration: underline; text-underline-offset: 4px; line-height: 1.75; }
+.subjects-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.subjects-heading > span { font-size: 0.875rem; color: var(--vp-c-text-2); }
+.subject-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.subject-card { display: flex; flex-direction: column; padding: 1.25rem; border: 1px solid var(--vp-c-divider); border-radius: 10px; transition: border-color 0.15s, background-color 0.15s; }
+.subject-card:hover { border-color: var(--vp-c-brand-1); background: var(--vp-c-bg-soft); }
+.subject-card:focus-visible, .shortcut-links a:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 4px; }
+.subject-number { font-size: 0.875rem; color: var(--vp-c-text-3); font-variant-numeric: tabular-nums; }
+.subject-card h3 { margin: 0.5rem 0 1.25rem; font-size: 1.125rem; font-weight: 650; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
+.subject-meta { display: flex; justify-content: space-between; gap: 1rem; margin-top: auto; font-size: 0.875rem; color: var(--vp-c-text-2); }
+.subject-meta .active { color: var(--vp-c-brand-1); font-weight: 600; }
+@media (max-width: 800px) { .subject-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) {
+  .study-home { padding: 2rem 1.25rem 3rem; }
+  .study-heading h1 { font-size: 2rem; }
+  .subject-grid { grid-template-columns: 1fr; }
+  .shortcut-links { flex-direction: column; gap: 0.5rem; }
+  .vp-doc table { font-size: 0.875rem; }
+}

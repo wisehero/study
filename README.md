@@ -2,6 +2,19 @@
 
 Java 기본기와 Spring 서비스 개발을 각각 독립된 프로젝트에서 실습한다. 공부 목표와 Git 이력은 이 저장소에서 함께 관리한다.
 
+## 웹에서 읽기
+
+[공부 노트 웹사이트](https://wisehero.github.io/study/)에서 모바일 메뉴와 검색으로 자료를 찾아볼 수 있다. 기존 Markdown과 그림을 원본으로 사용하며, 주제 폴더를 추가하면 웹 메뉴에도 자동으로 반영된다. `main`에 푸시하면 GitHub Actions가 빌드해 GitHub Pages에 배포한다.
+
+로컬에서 사이트를 확인하려면 저장소 루트에서 실행한다.
+
+```sh
+npm ci
+npm run docs:dev
+```
+
+배포용 빌드는 `npm run docs:build`, 빌드 결과 확인은 `npm run docs:preview`를 사용한다. 웹 설정은 `.vitepress`, 배포 워크플로는 `.github/workflows/pages.yml`에서 관리한다.
+
 | 프로젝트 | 목적 | 실행 환경 |
 | --- | --- | --- |
 | [Java Lab](java-lab/README.md) | 객체·컬렉션·예외·동시성·JVM | Java 21, Docker 불필요 |
