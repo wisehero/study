@@ -65,13 +65,18 @@ export default defineConfig({
         }
         return fence(tokens, index, options, env, self);
       };
+      // 그림은 화면 폭에 맞추고, 누르면 ImageViewer가 크게 보여 준다.
       const image = md.renderer.rules.image!;
-      md.renderer.rules.image = (tokens, index, options, env, self) => {
-        const rendered = image(tokens, index, options, env, self);
-        return tokens[index].attrGet('src')?.endsWith('.svg')
-          ? `<span class="study-image" tabindex="0" role="region" aria-label="그림 가로로 넘겨보기">${rendered}</span>`
-          : rendered;
-      };
+      md.renderer.rules.image = (tokens, index, options, env, self) =>
+        `<button class="study-image" type="button">${image(tokens, index, options, env, self)}</button>`;
+      // 짧은 표 셀은 한 줄로 유지해 좁은 화면에서 글자 단위로 쪼개지지 않게 한다.
+      md.core.ruler.after('inline', 'short-cells', state => {
+        state.tokens.forEach((token, index) => {
+          if (/^t[hd]_open$/.test(token.type) && state.tokens[index + 1].content.length <= 10) {
+            token.attrJoin('class', 'short-cell');
+          }
+        });
+      });
     }
   }
 });

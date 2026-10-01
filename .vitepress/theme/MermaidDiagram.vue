@@ -13,7 +13,7 @@ onMounted(async () => {
   watch([() => props.code, isDark], async () => {
     const current = ++version;
     mermaid.initialize({ startOnLoad: false, securityLevel: 'strict',
-      theme: isDark.value ? 'dark' : 'default' });
+      theme: isDark.value ? 'dark' : 'default', flowchart: { useMaxWidth: false } });
     try {
       const result = await mermaid.render(`${id}-${current}`, props.code);
       if (current === version) { svg.value = result.svg; error.value = ''; }
