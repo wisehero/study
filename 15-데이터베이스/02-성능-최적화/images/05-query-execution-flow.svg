@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
+<title id="title">05 · SELECT 한 건이 결과가 되기까지</title><desc id="desc">앱이 보낸 SQL은 파서, 전처리기, 옵티마이저를 거쳐 실행 계획이 되고, 실행 엔진이 InnoDB에 행을 요청해 만든 결과를 앱으로 보낸다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}.muted{fill:#64748b}</style>
+<rect width="1200" height="780" fill="#ffffff"/>
+<text x="32" y="45" font-size="28">05 · SELECT 한 건이 결과가 되기까지</text>
+<text x="32" y="79" font-size="18">MySQL 엔진이 실행 방법을 정하고, InnoDB가 페이지에서 행을 꺼내 준다.</text>
+<text x="32" y="118" font-size="18" class="code">SELECT id, total FROM orders WHERE member_id = 7;</text>
+<rect x="40" y="150" width="170" height="140" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="188" font-size="21">앱</text>
+<text x="58" y="222" font-size="18">연결 스레드로</text>
+<text x="58" y="248" font-size="18">SQL 전송</text>
+<rect x="250" y="150" width="270" height="140" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="270" y="188" font-size="21">파서</text>
+<text x="270" y="222" font-size="18">문법을 검사해</text>
+<text x="270" y="248" font-size="18">파스 트리로 바꿈</text>
+<text x="270" y="276" font-size="15" class="muted">실패하면 1064 오류</text>
+<rect x="560" y="150" width="270" height="140" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="580" y="188" font-size="21">전처리기</text>
+<text x="580" y="222" font-size="18">테이블·컬럼이 있는지,</text>
+<text x="580" y="248" font-size="18">권한이 있는지 확인</text>
+<text x="580" y="276" font-size="15" class="muted">없는 컬럼이면 1054 오류</text>
+<rect x="870" y="150" width="290" height="140" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="890" y="188" font-size="21">옵티마이저</text>
+<text x="890" y="222" font-size="18">인덱스 탐색과 풀 스캔의</text>
+<text x="890" y="248" font-size="18">비용을 비교해 계획 선택</text>
+<text x="890" y="276" font-size="15" class="muted">EXPLAIN으로 결과 확인</text>
+<rect x="870" y="360" width="290" height="140" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="890" y="398" font-size="21">실행 엔진</text>
+<text x="890" y="432" font-size="18">계획대로 InnoDB에 행을</text>
+<text x="890" y="458" font-size="18">요청하고 남은 조건 검사</text>
+<rect x="250" y="360" width="270" height="140" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="270" y="398" font-size="21">결과 전송</text>
+<text x="270" y="432" font-size="18">조건을 통과한 행을</text>
+<text x="270" y="458" font-size="18">앱으로 보냄</text>
+<rect x="870" y="580" width="290" height="140" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="890" y="618" font-size="21">InnoDB</text>
+<text x="890" y="652" font-size="18">버퍼 풀에서 페이지를 찾아</text>
+<text x="890" y="678" font-size="18">행을 한 건씩 돌려줌</text>
+<rect x="560" y="580" width="270" height="140" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="580" y="618" font-size="21">디스크 (<tspan class="code">.ibd</tspan>)</text>
+<text x="580" y="652" font-size="18">버퍼 풀에 없는</text>
+<text x="580" y="678" font-size="18">페이지만 읽음</text>
+<path d="M210 220 H246" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M520 220 H556" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M830 220 H866" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1015 290 V356" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="1030" y="330" font-size="16">실행 계획</text>
+<path d="M995 500 V576" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1035 580 V504" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="1050" y="534" font-size="16">행 요청과</text>
+<text x="1050" y="556" font-size="16">돌려받은 행</text>
+<path d="M830 650 H866" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M870 430 H524" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M250 430 H125 V294" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="40" y="560" font-size="18">시간은 보통 오른쪽 아래</text>
+<text x="40" y="586" font-size="18">(실행 엔진과 InnoDB가 읽는</text>
+<text x="40" y="612" font-size="18">페이지 수)에서 갈린다.</text>
+<text x="32" y="764" font-size="16">초록 = MySQL 엔진 · 주황 = 스토리지 엔진(InnoDB) · 회색 = 앱과 주고받는 부분 · 단계는 단순화한 것이다.</text>
+</svg>

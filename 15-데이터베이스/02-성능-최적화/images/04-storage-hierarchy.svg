@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660" role="img" aria-labelledby="title desc">
+<title id="title">04 · 테이블스페이스에서 행까지</title><desc id="desc">테이블스페이스는 세그먼트로, 세그먼트는 1MB 익스텐트로, 익스텐트는 16KB 페이지 64개로 이뤄지고, 페이지 안에 여러 행이 들어간다. 긴 컬럼 값은 오버플로 페이지에 따로 저장된다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}.muted{fill:#64748b}</style>
+<rect width="1200" height="660" fill="#ffffff"/>
+<text x="32" y="45" font-size="28">04 · 테이블스페이스에서 행까지</text>
+<text x="32" y="79" font-size="18">큰 단위부터 확대해 보면 테이블스페이스, 세그먼트, 익스텐트, 페이지, 행 순서로 들어 있다.</text>
+<rect x="40" y="110" width="250" height="440" rx="12" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="60" y="146" font-size="21">테이블스페이스</text>
+<text x="60" y="174" font-size="18" class="code">orders.ibd</text>
+<rect x="60" y="196" width="210" height="96" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="76" y="226" font-size="18">세그먼트</text>
+<text x="76" y="252" font-size="16" class="muted">인덱스의 리프 페이지</text>
+<rect x="76" y="262" width="54" height="18" rx="3" fill="#ffffff" stroke="#94a3b8"/>
+<rect x="136" y="262" width="54" height="18" rx="3" fill="#ffffff" stroke="#94a3b8"/>
+<rect x="196" y="262" width="54" height="18" rx="3" fill="#e8f4ef" stroke="#334155" stroke-width="2"/>
+<rect x="60" y="306" width="210" height="96" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="76" y="336" font-size="18">세그먼트</text>
+<text x="76" y="362" font-size="16" class="muted">인덱스의 리프 아닌 페이지</text>
+<rect x="76" y="372" width="54" height="18" rx="3" fill="#ffffff" stroke="#94a3b8"/>
+<text x="60" y="440" font-size="17">인덱스마다 세그먼트</text>
+<text x="60" y="466" font-size="17">두 개를 쓰고, 공간은</text>
+<text x="60" y="492" font-size="17">익스텐트 단위로 받는다</text>
+<text x="60" y="532" font-size="16" class="muted">작은 칸 = 익스텐트</text>
+<rect x="330" y="110" width="250" height="440" rx="12" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="350" y="146" font-size="21">익스텐트 (1MB)</text>
+<g fill="#ffffff" stroke="#94a3b8">
+<rect x="350" y="170" width="22" height="22" rx="3"/><rect x="376" y="170" width="22" height="22" rx="3"/><rect x="402" y="170" width="22" height="22" rx="3"/><rect x="428" y="170" width="22" height="22" rx="3"/><rect x="454" y="170" width="22" height="22" rx="3"/><rect x="480" y="170" width="22" height="22" rx="3"/><rect x="506" y="170" width="22" height="22" rx="3"/><rect x="532" y="170" width="22" height="22" rx="3"/>
+<rect x="350" y="196" width="22" height="22" rx="3"/><rect x="376" y="196" width="22" height="22" rx="3"/><rect x="402" y="196" width="22" height="22" rx="3"/><rect x="428" y="196" width="22" height="22" rx="3"/><rect x="454" y="196" width="22" height="22" rx="3"/><rect x="480" y="196" width="22" height="22" rx="3"/><rect x="506" y="196" width="22" height="22" rx="3"/><rect x="532" y="196" width="22" height="22" rx="3"/>
+<rect x="350" y="222" width="22" height="22" rx="3"/><rect x="376" y="222" width="22" height="22" rx="3"/><rect x="402" y="222" width="22" height="22" rx="3"/><rect x="428" y="222" width="22" height="22" rx="3"/><rect x="454" y="222" width="22" height="22" rx="3"/><rect x="480" y="222" width="22" height="22" rx="3"/><rect x="506" y="222" width="22" height="22" rx="3"/><rect x="532" y="222" width="22" height="22" rx="3"/>
+<rect x="350" y="248" width="22" height="22" rx="3"/><rect x="376" y="248" width="22" height="22" rx="3"/><rect x="402" y="248" width="22" height="22" rx="3"/><rect x="428" y="248" width="22" height="22" rx="3"/><rect x="454" y="248" width="22" height="22" rx="3"/><rect x="480" y="248" width="22" height="22" rx="3"/><rect x="506" y="248" width="22" height="22" rx="3"/><rect x="532" y="248" width="22" height="22" rx="3"/>
+<rect x="350" y="274" width="22" height="22" rx="3"/><rect x="376" y="274" width="22" height="22" rx="3"/><rect x="402" y="274" width="22" height="22" rx="3"/><rect x="428" y="274" width="22" height="22" rx="3"/><rect x="454" y="274" width="22" height="22" rx="3"/><rect x="480" y="274" width="22" height="22" rx="3"/><rect x="506" y="274" width="22" height="22" rx="3"/><rect x="532" y="274" width="22" height="22" rx="3"/>
+<rect x="350" y="300" width="22" height="22" rx="3"/><rect x="376" y="300" width="22" height="22" rx="3"/><rect x="402" y="300" width="22" height="22" rx="3"/><rect x="428" y="300" width="22" height="22" rx="3"/><rect x="454" y="300" width="22" height="22" rx="3"/><rect x="480" y="300" width="22" height="22" rx="3"/><rect x="506" y="300" width="22" height="22" rx="3"/><rect x="532" y="300" width="22" height="22" rx="3"/>
+<rect x="350" y="326" width="22" height="22" rx="3"/><rect x="376" y="326" width="22" height="22" rx="3"/><rect x="402" y="326" width="22" height="22" rx="3"/><rect x="428" y="326" width="22" height="22" rx="3"/><rect x="454" y="326" width="22" height="22" rx="3"/><rect x="480" y="326" width="22" height="22" rx="3"/><rect x="506" y="326" width="22" height="22" rx="3"/><rect x="532" y="326" width="22" height="22" rx="3"/>
+<rect x="350" y="352" width="22" height="22" rx="3"/><rect x="376" y="352" width="22" height="22" rx="3"/><rect x="402" y="352" width="22" height="22" rx="3"/><rect x="428" y="352" width="22" height="22" rx="3"/><rect x="454" y="352" width="22" height="22" rx="3"/><rect x="480" y="352" width="22" height="22" rx="3"/><rect x="506" y="352" width="22" height="22" rx="3"/><rect x="532" y="352" width="22" height="22" rx="3"/>
+</g>
+<rect x="532" y="248" width="22" height="22" rx="3" fill="#e8f4ef" stroke="#334155" stroke-width="2"/>
+<text x="350" y="410" font-size="17">16KB 페이지 64개가</text>
+<text x="350" y="436" font-size="17">연속으로 붙어 있다</text>
+<text x="350" y="532" font-size="16" class="muted">작은 칸 = 페이지</text>
+<rect x="620" y="110" width="250" height="440" rx="12" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="640" y="146" font-size="21">페이지 (16KB)</text>
+<rect x="640" y="166" width="210" height="34" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="654" y="189" font-size="16">페이지 정보</text>
+<rect x="640" y="206" width="210" height="34" rx="6" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="654" y="229" font-size="16">행 · id = 1001</text>
+<rect x="640" y="246" width="210" height="34" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+<text x="654" y="269" font-size="16">행 · id = 1002</text>
+<rect x="640" y="286" width="210" height="34" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+<text x="654" y="309" font-size="16">행 · id = 1003</text>
+<text x="735" y="342" font-size="18" text-anchor="middle">⋮</text>
+<rect x="640" y="354" width="210" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="5 4"/>
+<text x="654" y="377" font-size="16" class="muted">남겨 둔 빈 공간</text>
+<text x="640" y="430" font-size="17">읽기·쓰기의 최소 단위</text>
+<text x="640" y="456" font-size="17">행 하나가 필요해도</text>
+<text x="640" y="482" font-size="17">페이지 전체를 읽는다</text>
+<rect x="910" y="110" width="250" height="440" rx="12" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="930" y="146" font-size="21">행 (DYNAMIC 형식)</text>
+<rect x="930" y="166" width="210" height="34" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+<text x="944" y="189" font-size="16" class="code">id 1001</text>
+<rect x="930" y="206" width="210" height="34" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+<text x="944" y="229" font-size="16" class="code">member_id 7</text>
+<rect x="930" y="246" width="210" height="34" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+<text x="944" y="269" font-size="16" class="code">status PAID</text>
+<rect x="930" y="286" width="210" height="34" rx="6" fill="#fff1df" stroke="#94a3b8"/>
+<text x="944" y="309" font-size="16"><tspan class="code">memo</tspan> 20바이트 포인터</text>
+<rect x="930" y="390" width="210" height="60" rx="8" fill="#fff1df" stroke="#94a3b8"/>
+<text x="944" y="416" font-size="17">오버플로 페이지</text>
+<text x="944" y="440" font-size="15" class="muted">긴 TEXT 값의 실제 내용</text>
+<text x="930" y="490" font-size="17">긴 값은 다른 페이지에</text>
+<text x="930" y="516" font-size="17">두고 위치만 기록한다</text>
+<path d="M250 271 C300 271 300 271 326 271" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M554 259 C585 259 590 223 616 223" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M850 223 C870 223 880 183 926 183" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1035 320 V386" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="40" y="596" font-size="20">진하게 표시한 칸을 다음 칸에서 확대했다.</text>
+<text x="32" y="640" font-size="16">크기는 기본 설정(innodb_page_size = 16KB) 기준 · 행과 컬럼 값은 설명용 예시다.</text>
+</svg>
