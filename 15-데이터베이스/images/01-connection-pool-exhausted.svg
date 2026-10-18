@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+<title id="title">01 · 느린 쿼리가 커넥션 풀의 연결을 모두 붙잡으면</title><desc id="desc">느린 상품 검색 쿼리가 풀의 연결 5개를 모두 점유해, 빠른 주문·회원 조회 요청이 연결을 기다리다 실패한다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}</style>
+<rect width="1200" height="700" fill="#ffffff"/>
+<text x="32" y="45" font-size="28">01 · 느린 쿼리가 커넥션 풀의 연결을 모두 붙잡으면</text>
+<text x="32" y="79" font-size="18">빠르게 끝날 주문·회원 조회도 빈 연결을 얻지 못해 기다리다 실패한다.</text>
+<text x="40" y="132" font-size="22">대기 중인 요청</text>
+<rect x="40" y="160" width="270" height="85" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="58" y="194" font-size="21">주문 조회 API</text>
+<text x="58" y="226" font-size="18">쿼리는 0.05초면 끝남</text>
+<rect x="40" y="265" width="270" height="85" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="58" y="299" font-size="21">회원 조회 API</text>
+<text x="58" y="331" font-size="18">쿼리는 0.02초면 끝남</text>
+<path d="M310 202 H380" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow)"/>
+<path d="M310 307 H380" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow)"/>
+<text x="40" y="392" font-size="19">점선 = 빈 연결이 생길 때까지 대기</text>
+<rect x="390" y="110" width="440" height="410" rx="12" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="412" y="146" font-size="22">커넥션 풀 (예: 연결 5개)</text>
+<rect x="412" y="166" width="396" height="56" rx="8" fill="#fff1df" stroke="#94a3b8"/>
+<text x="430" y="201" font-size="19">연결 1 · 상품 검색 실행 중</text>
+<rect x="412" y="234" width="396" height="56" rx="8" fill="#fff1df" stroke="#94a3b8"/>
+<text x="430" y="269" font-size="19">연결 2 · 상품 검색 실행 중</text>
+<rect x="412" y="302" width="396" height="56" rx="8" fill="#fff1df" stroke="#94a3b8"/>
+<text x="430" y="337" font-size="19">연결 3 · 상품 검색 실행 중</text>
+<rect x="412" y="370" width="396" height="56" rx="8" fill="#fff1df" stroke="#94a3b8"/>
+<text x="430" y="405" font-size="19">연결 4 · 상품 검색 실행 중</text>
+<rect x="412" y="438" width="396" height="56" rx="8" fill="#fff1df" stroke="#94a3b8"/>
+<text x="430" y="473" font-size="19">연결 5 · 상품 검색 실행 중</text>
+<path d="M808 194 H930" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M808 262 H930" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M808 330 H930" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M808 398 H930" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M808 466 H930" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="930" y="166" width="230" height="328" rx="12" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="950" y="210" font-size="22">MySQL</text>
+<text x="950" y="250" font-size="18">느린 검색 쿼리 5개를</text>
+<text x="950" y="278" font-size="18">처리하느라 CPU와</text>
+<text x="950" y="306" font-size="18">디스크 I/O를 차지</text>
+<text x="950" y="350" font-size="18">한 건에 10초씩 걸려</text>
+<text x="950" y="378" font-size="18">연결을 늦게 돌려줌</text>
+<path d="M32 552 H1168" stroke="#cbd5e1"/>
+<text x="40" y="596" font-size="22">connectionTimeout(HikariCP 기본 30초) 안에 빈 연결이 없으면</text>
+<text x="40" y="632" font-size="22">대기하던 요청은 SQLException으로 실패한다.</text>
+<text x="32" y="682" font-size="16">주황 = 느린 쿼리가 점유한 연결 · 초록 = 빠르게 끝날 요청 · 연결 수와 시간은 설명용 예시다.</text>
+</svg>

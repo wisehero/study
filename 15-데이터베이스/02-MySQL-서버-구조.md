@@ -6,17 +6,7 @@ MySQL 서버는 크게 **SQL을 해석하고 실행 방법을 정하는 MySQL �
 
 **MySQL 엔진은 "무엇을 어떤 순서로 읽을지" 정하고, 스토리지 엔진은 "실제로 읽고 쓰는" 일을 한다.** 연결 관리, SQL 해석, 실행 계획 수립처럼 모든 테이블에 공통인 기능은 MySQL 엔진이 맡는다. 데이터를 디스크와 메모리에 어떤 형태로 저장할지는 스토리지 엔진이 맡는다. [MySQL 스토리지 엔진 구조](https://dev.mysql.com/doc/refman/8.4/en/pluggable-storage-overview.html)
 
-```mermaid
-flowchart TD
-    A[앱] --> B[연결 관리]
-    subgraph S[MySQL 엔진]
-        B --> C[SQL 해석]
-        C --> D[옵티마이저]
-        D --> E[실행 엔진]
-    end
-    E -->|행 읽기·쓰기 요청| F[스토리지 엔진 InnoDB]
-    F --> G[메모리와 디스크의 데이터]
-```
+![MySQL 엔진의 네 단계와 그 아래 스토리지 엔진의 버퍼 풀·데이터 파일](images/02-mysql-server-layers.svg)
 
 스토리지 엔진은 교체할 수 있는 구조다. 그래서 이 구조를 **플러그형 스토리지 엔진 구조**라고 부른다. 앱은 어느 스토리지 엔진을 쓰든 같은 SQL로 MySQL에 요청한다. [MySQL 스토리지 엔진 구조](https://dev.mysql.com/doc/refman/8.4/en/pluggable-storage-overview.html)
 
