@@ -68,7 +68,7 @@ UPDATE를 실행하면 InnoDB는 데이터 파일을 바로 고치지 않는다.
 
 **undo 로그는 트랜잭션이 고치기 전의 값을 보관한다.** 롤백하면 이 값으로 되돌린다. 다른 트랜잭션이 아직 커밋되지 않은 변경 대신 이전 값을 읽어야 할 때도 undo 로그를 쓴다. 이것이 일관된 읽기(consistent read)다. [undo 로그](https://dev.mysql.com/doc/refman/8.4/en/innodb-undo-logs.html)
 
-그래서 **오래 열려 있는 트랜잭션은 성능 문제를 만든다.** 그 트랜잭션이 이전 값을 볼 수도 있으므로 InnoDB는 관련 undo 기록을 지우지 못하고, undo 영역이 계속 커진다. 공식 문서는 읽기만 하는 트랜잭션이라도 주기적으로 커밋하라고 권한다. [InnoDB 다중 버전](https://dev.mysql.com/doc/refman/8.4/en/innodb-multi-versioning.html) 트랜잭션과 격리 수준은 [트랜잭션과 데이터 정합성](../03-트랜잭션과-데이터-정합성/공부%20목표.md)에서 이어서 다룬다.
+그래서 **오래 열려 있는 트랜잭션은 성능 문제를 만든다.** 그 트랜잭션이 이전 값을 볼 수도 있으므로 InnoDB는 관련 undo 기록을 지우지 못하고, undo 영역이 계속 커진다. 공식 문서는 읽기만 하는 트랜잭션이라도 주기적으로 커밋하라고 권한다. [InnoDB 다중 버전](https://dev.mysql.com/doc/refman/8.4/en/innodb-multi-versioning.html) 트랜잭션과 격리 수준은 [트랜잭션과 데이터 정합성](../../03-트랜잭션과-데이터-정합성/공부%20목표.md)에서 이어서 다룬다.
 
 ## 5 doublewrite 버퍼
 

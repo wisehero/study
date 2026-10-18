@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+<title id="title">04 · 복합 인덱스 (category, price)의 정렬 순서</title><desc id="desc">복합 인덱스는 category로 먼저 정렬하고 같은 category 안에서 price로 정렬한다. category와 price 조건이 함께 있으면 연속된 구간 하나를 읽지만, price 조건만 있으면 찾을 위치가 category마다 흩어진다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}.muted{fill:#64748b}</style>
+<rect width="1200" height="820" fill="#ffffff"/>
+<text x="32" y="45" font-size="28">04 · 복합 인덱스 (category, price)의 정렬 순서</text>
+<text x="32" y="79" font-size="18">category로 먼저 정렬하고, category가 같으면 price로 정렬한다.</text>
+<text x="510" y="132" font-size="19" text-anchor="middle" class="code">category</text>
+<text x="690" y="132" font-size="19" text-anchor="middle" class="code">price</text>
+<rect x="420" y="144" width="360" height="34" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="420" y="178" width="360" height="34" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="420" y="212" width="360" height="34" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="420" y="246" width="360" height="34" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="420" y="280" width="360" height="34" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="420" y="314" width="360" height="34" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="420" y="348" width="360" height="34" fill="#e8f4ef" stroke="#cbd5e1"/>
+<rect x="420" y="382" width="360" height="34" fill="#e8f4ef" stroke="#cbd5e1"/>
+<rect x="420" y="416" width="360" height="34" fill="#e8f4ef" stroke="#cbd5e1"/>
+<rect x="420" y="450" width="360" height="34" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="420" y="484" width="360" height="34" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="420" y="518" width="360" height="34" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="420" y="552" width="360" height="34" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="420" y="586" width="360" height="34" fill="#ffffff" stroke="#cbd5e1"/>
+<path d="M600 144 V620" stroke="#cbd5e1"/>
+<text x="510" y="168" font-size="18" text-anchor="middle">가구</text><text x="690" y="168" font-size="18" text-anchor="middle" class="code">100</text>
+<text x="510" y="202" font-size="18" text-anchor="middle">가구</text><text x="690" y="202" font-size="18" text-anchor="middle" class="code">1000</text>
+<text x="600" y="236" font-size="18" text-anchor="middle" class="muted">⋮</text>
+<text x="510" y="270" font-size="18" text-anchor="middle">가전</text><text x="690" y="270" font-size="18" text-anchor="middle" class="code">1000</text>
+<text x="600" y="304" font-size="18" text-anchor="middle" class="muted">⋮</text>
+<text x="510" y="338" font-size="18" text-anchor="middle">도서</text><text x="690" y="338" font-size="18" text-anchor="middle" class="code">900</text>
+<text x="510" y="372" font-size="18" text-anchor="middle">도서</text><text x="690" y="372" font-size="18" text-anchor="middle" class="code">1000</text>
+<text x="510" y="406" font-size="18" text-anchor="middle">도서</text><text x="690" y="406" font-size="18" text-anchor="middle" class="code">1500</text>
+<text x="510" y="440" font-size="18" text-anchor="middle">도서</text><text x="690" y="440" font-size="18" text-anchor="middle" class="code">2000</text>
+<text x="510" y="474" font-size="18" text-anchor="middle">도서</text><text x="690" y="474" font-size="18" text-anchor="middle" class="code">2100</text>
+<text x="600" y="508" font-size="18" text-anchor="middle" class="muted">⋮</text>
+<text x="510" y="542" font-size="18" text-anchor="middle">식품</text><text x="690" y="542" font-size="18" text-anchor="middle" class="code">1000</text>
+<text x="600" y="576" font-size="18" text-anchor="middle" class="muted">⋮</text>
+<text x="510" y="610" font-size="18" text-anchor="middle">의류</text><text x="690" y="610" font-size="18" text-anchor="middle" class="code">1000</text>
+<circle cx="764" cy="195" r="7" fill="#f59e0b"/>
+<circle cx="764" cy="263" r="7" fill="#f59e0b"/>
+<circle cx="764" cy="365" r="7" fill="#f59e0b"/>
+<circle cx="764" cy="535" r="7" fill="#f59e0b"/>
+<circle cx="764" cy="603" r="7" fill="#f59e0b"/>
+<rect x="40" y="320" width="320" height="140" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="58" y="354" font-size="16" class="code">category = '도서'</text>
+<text x="58" y="380" font-size="16" class="code">AND price</text>
+<text x="58" y="402" font-size="16" class="code">BETWEEN 1000 AND 2000</text>
+<text x="58" y="440" font-size="19">연속된 구간 하나만 읽는다</text>
+<path d="M410 350 H400 V448 H410" fill="none" stroke="#334155" stroke-width="2.5"/>
+<rect x="840" y="220" width="320" height="150" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="858" y="254" font-size="16" class="code">price = 1000</text>
+<text x="858" y="282" font-size="17" class="muted">category 조건 없음</text>
+<text x="858" y="318" font-size="19">찾을 위치가 category마다</text>
+<text x="858" y="346" font-size="19">흩어져 한 구간이 아니다</text>
+<path d="M360 399 H394" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M840 295 L776 199" fill="none" stroke="#334155" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M840 300 L776 265" fill="none" stroke="#334155" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M840 310 L776 362" fill="none" stroke="#334155" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M840 320 L776 530" fill="none" stroke="#334155" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M840 325 L776 597" fill="none" stroke="#334155" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M32 652 H1168" stroke="#cbd5e1"/>
+<text x="40" y="692" font-size="19"><tspan class="code">category = '도서' ORDER BY price</tspan>: 도서 구간 안에서 price가 이미 정렬돼 있어 따로 정렬하지 않는다.</text>
+<text x="40" y="738" font-size="22">왼쪽 컬럼부터 조건이 있어야 인덱스에서 연속된 구간이 된다.</text>
+<text x="32" y="782" font-size="16">초록 = 두 조건으로 읽는 구간 · 주황 점 = price 조건만 있을 때 찾아야 하는 위치 · 값은 3장 샘플 데이터 기준이며 일부만 그렸다.</text>
+</svg>

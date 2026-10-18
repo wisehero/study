@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+<title id="title">03 · B-Tree 인덱스로 price = 3000 찾기</title><desc id="desc">루트에서 3000이 들어갈 구간을 고르고, 브랜치에서 리프를 고른 뒤, 리프에서 price가 3000인 항목을 옆 리프까지 이어 읽고, 각 항목의 기본키로 실제 행을 찾는다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}.muted{fill:#64748b}</style>
+<rect width="1200" height="800" fill="#ffffff"/>
+<text x="32" y="45" font-size="28">03 · B-Tree 인덱스로 price = 3000 찾기</text>
+<text x="32" y="79" font-size="18">위에서 아래로 내려가 시작 위치를 찾고, 리프는 옆으로 이어 읽는다.</text>
+<text x="40" y="152" font-size="21">① 루트</text>
+<text x="40" y="178" font-size="17" class="muted">구간 고르기</text>
+<text x="40" y="282" font-size="21">② 브랜치</text>
+<text x="40" y="308" font-size="17" class="muted">리프 고르기</text>
+<text x="40" y="430" font-size="21">③ 리프</text>
+<text x="40" y="456" font-size="17" class="muted">(price, PK) 정렬</text>
+<text x="40" y="606" font-size="21">④ 테이블</text>
+<text x="40" y="632" font-size="17" class="muted">PK로 행 찾기</text>
+<path d="M540 180 L315 250" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+<path d="M735 180 L807 250" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+<path d="M830 180 L1053 250" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+<path d="M490 310 L315 380" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+<path d="M610 310 L807 380" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+<path d="M640 310 L1053 380" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="535" y="120" width="300" height="60" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<path d="M635 120 V180 M735 120 V180" stroke="#94a3b8"/>
+<text x="585" y="158" font-size="20" text-anchor="middle" class="code">2000</text>
+<text x="685" y="158" font-size="20" text-anchor="middle" class="code">5000</text>
+<text x="785" y="158" font-size="20" text-anchor="middle" class="code">8000</text>
+<text x="860" y="158" font-size="17" class="muted">3000은 2000과 5000 사이</text>
+<rect x="210" y="250" width="210" height="60" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="315" y="287" font-size="18" text-anchor="middle" class="code">500 · 1000 · 1500</text>
+<rect x="456" y="250" width="210" height="60" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="561" y="287" font-size="18" text-anchor="middle" class="code">2500 · 3000 · 4000</text>
+<rect x="702" y="250" width="210" height="60" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="807" y="287" font-size="18" text-anchor="middle" class="code">6000 · 7000</text>
+<rect x="948" y="250" width="210" height="60" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="1053" y="287" font-size="18" text-anchor="middle" class="code">9000 · 9500</text>
+<rect x="210" y="380" width="210" height="110" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="232" y="415" font-size="17" class="code">2900, 28</text>
+<text x="232" y="445" font-size="17" class="code">2900, 1028</text>
+<text x="232" y="475" font-size="17" class="code muted">…</text>
+<rect x="456" y="380" width="210" height="110" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="478" y="415" font-size="17" class="code">3000, 29</text>
+<text x="478" y="445" font-size="17" class="code">3000, 1029</text>
+<text x="478" y="475" font-size="17" class="code muted">…</text>
+<rect x="702" y="380" width="210" height="110" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="724" y="415" font-size="17" class="code muted">…</text>
+<text x="724" y="445" font-size="17" class="code">3000, 999029</text>
+<text x="724" y="475" font-size="17" class="code muted">3100, 30 (멈춤)</text>
+<rect x="948" y="380" width="210" height="110" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="970" y="415" font-size="17" class="code">3100, 1030</text>
+<text x="970" y="445" font-size="17" class="code">3100, 2030</text>
+<text x="970" y="475" font-size="17" class="code muted">…</text>
+<rect x="210" y="560" width="948" height="100" rx="12" fill="#fff1df" stroke="#94a3b8"/>
+<text x="232" y="592" font-size="19">클러스터드 인덱스: 기본키 순서로 저장된 실제 행</text>
+<text x="232" y="638" font-size="17" class="code">29 · 상품29 · 가구 · 3000</text>
+<text x="560" y="638" font-size="17" class="code">1029 · 상품1029 · 가구 · 3000</text>
+<text x="900" y="638" font-size="17" class="code muted">…</text>
+<path d="M635 180 L561 246" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M561 310 L561 376" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M420 435 H452" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M666 435 H698" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M912 435 H944" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M520 490 L330 556" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M580 490 L660 556" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M790 490 L910 556" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M32 698 H1168" stroke="#cbd5e1"/>
+<text x="40" y="738" font-size="22">시작 위치는 몇 단계 만에 찾고, 그 뒤는 리프를 옆으로 읽기만 한다.</text>
+<text x="32" y="780" font-size="16">초록 = 이번 탐색이 지나는 노드 · 회색 선 = 다른 자식 · 리프 항목은 (price, 기본키) · 실제 노드에는 키가 수백 개 들어간다.</text>
+</svg>

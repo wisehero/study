@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="790" viewBox="0 0 1200 790" role="img" aria-labelledby="title desc">
+<title id="title">06 · 격리 수준마다 트랜잭션 A가 읽는 재고</title><desc id="desc">트랜잭션 B가 재고를 10에서 7로 바꾸고 나중에 커밋한다. READ UNCOMMITTED는 커밋 전 값 7을 읽고, READ COMMITTED는 10을 읽었다가 커밋 후 7을 읽으며, REPEATABLE READ는 두 번 모두 10을 읽고, SERIALIZABLE은 B가 끝날 때까지 기다린 뒤 7을 읽는다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}.muted{fill:#64748b}</style>
+<rect width="1200" height="790" fill="#ffffff"/>
+<text x="32" y="45" font-size="28">06 · 격리 수준마다 트랜잭션 A가 읽는 재고</text>
+<text x="32" y="79" font-size="18">B가 재고를 10에서 7로 바꾸고 나중에 커밋하는 동안, A가 같은 행을 두 번 읽는다.</text>
+<rect x="40" y="110" width="255" height="80" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="144" font-size="20">① B: UPDATE</text>
+<text x="58" y="174" font-size="17">재고 10 → 7, 커밋 전</text>
+<rect x="325" y="110" width="255" height="80" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="343" y="144" font-size="20">② A: SELECT</text>
+<text x="343" y="174" font-size="17">재고를 처음 읽음</text>
+<rect x="610" y="110" width="255" height="80" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="628" y="144" font-size="20">③ B: COMMIT</text>
+<text x="628" y="174" font-size="17">재고 7이 확정됨</text>
+<rect x="895" y="110" width="255" height="80" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="913" y="144" font-size="20">④ A: SELECT</text>
+<text x="913" y="174" font-size="17">같은 행을 다시 읽음</text>
+<text x="40" y="240" font-size="19" class="muted">격리 수준</text>
+<text x="320" y="240" font-size="19" class="muted">② 첫 SELECT 결과</text>
+<text x="740" y="240" font-size="19" class="muted">④ 두 번째 SELECT 결과</text>
+<rect x="40" y="256" width="260" height="90" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="308" font-size="19">READ UNCOMMITTED</text>
+<rect x="320" y="256" width="400" height="90" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="345" y="314" font-size="34" class="code">7</text>
+<text x="400" y="296" font-size="17">커밋 전 값을 읽음</text>
+<text x="400" y="324" font-size="17">더티 리드</text>
+<rect x="740" y="256" width="420" height="90" rx="10" fill="#ffffff" stroke="#94a3b8"/>
+<text x="765" y="314" font-size="34" class="code">7</text>
+<text x="820" y="310" font-size="17">커밋된 값과 같아짐</text>
+<rect x="40" y="358" width="260" height="90" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="410" font-size="19">READ COMMITTED</text>
+<rect x="320" y="358" width="400" height="90" rx="10" fill="#ffffff" stroke="#94a3b8"/>
+<text x="345" y="416" font-size="34" class="code">10</text>
+<text x="400" y="412" font-size="17">커밋된 값만 읽음</text>
+<rect x="740" y="358" width="420" height="90" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="765" y="416" font-size="34" class="code">7</text>
+<text x="820" y="398" font-size="17">SELECT마다 새 스냅샷</text>
+<text x="820" y="426" font-size="17">반복 불가능한 읽기</text>
+<rect x="40" y="460" width="260" height="90" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="500" font-size="19">REPEATABLE READ</text>
+<text x="58" y="528" font-size="17" class="muted">InnoDB 기본값</text>
+<rect x="320" y="460" width="400" height="90" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="345" y="518" font-size="34" class="code">10</text>
+<text x="400" y="514" font-size="17">이때 스냅샷을 만듦</text>
+<rect x="740" y="460" width="420" height="90" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="765" y="518" font-size="34" class="code">10</text>
+<text x="820" y="514" font-size="17">같은 스냅샷을 다시 읽음</text>
+<rect x="40" y="562" width="260" height="90" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="58" y="602" font-size="19">SERIALIZABLE</text>
+<text x="58" y="630" font-size="17" class="muted">자동 커밋 꺼짐</text>
+<rect x="320" y="562" width="400" height="90" rx="10" fill="#ffffff" stroke="#94a3b8"/>
+<text x="345" y="620" font-size="34" class="code">7</text>
+<text x="400" y="602" font-size="17">B가 끝날 때까지 기다린 뒤</text>
+<text x="400" y="630" font-size="17">③ 이후 값을 읽음</text>
+<rect x="740" y="562" width="420" height="90" rx="10" fill="#ffffff" stroke="#94a3b8"/>
+<text x="765" y="620" font-size="34" class="code">7</text>
+<text x="820" y="616" font-size="17">처음 읽은 값과 같음</text>
+<path d="M295 150 H321" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M580 150 H606" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M865 150 H891" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M32 680 H1168" stroke="#cbd5e1"/>
+<text x="40" y="720" font-size="21">READ COMMITTED는 SELECT마다, REPEATABLE READ는 첫 SELECT에서 스냅샷을 만든다.</text>
+<text x="32" y="764" font-size="16">재고의 처음 값 10 · 주황 = 격리 수준이 낮아 생긴 문제 · 초록 = 같은 값을 다시 읽음 · SERIALIZABLE은 일반 SELECT가 공유 잠금을 거는 경우 기준</text>
+</svg>
