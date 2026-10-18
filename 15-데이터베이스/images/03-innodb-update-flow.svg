@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="790" viewBox="0 0 1200 790" role="img" aria-labelledby="title desc">
+<title id="title">03 · UPDATE 한 건이 커밋되기까지</title><desc id="desc">커밋할 때 디스크에 꼭 쓰는 것은 redo 로그이고, 버퍼 풀에서 고친 데이터 페이지는 나중에 백그라운드에서 기록된다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}.muted{fill:#64748b}</style>
+<rect width="1200" height="790" fill="#ffffff"/>
+<text x="32" y="45" font-size="28">03 · UPDATE 한 건이 커밋되기까지</text>
+<text x="32" y="79" font-size="18">데이터 파일은 나중에 고치고, 커밋할 때는 redo 로그만 디스크에 남긴다.</text>
+<text x="40" y="124" font-size="20">트랜잭션</text>
+<text x="340" y="124" font-size="20">메모리 (버퍼 풀·로그 버퍼)</text>
+<text x="800" y="124" font-size="20">디스크</text>
+<rect x="40" y="140" width="260" height="90" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="60" y="192" font-size="21">① UPDATE 실행</text>
+<rect x="340" y="140" width="420" height="90" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="360" y="178" font-size="18">대상 페이지를 버퍼 풀에서 찾음</text>
+<text x="360" y="208" font-size="18">있으면 디스크를 읽지 않음</text>
+<rect x="800" y="140" width="360" height="90" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="820" y="178" font-size="18"><tspan class="code">.ibd</tspan>에서 페이지를 읽어 옴</text>
+<text x="820" y="208" font-size="18">버퍼 풀에 없을 때만</text>
+<path d="M800 185 H764" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="250" width="260" height="90" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="60" y="302" font-size="21">② 이전 값 보관</text>
+<rect x="340" y="250" width="420" height="90" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="360" y="288" font-size="18">변경 전 값을 undo 로그로 남김</text>
+<text x="360" y="318" font-size="18">롤백과 일관된 읽기에 사용</text>
+<rect x="40" y="360" width="260" height="90" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="60" y="412" font-size="21">③ 페이지 수정</text>
+<rect x="340" y="360" width="420" height="90" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="360" y="398" font-size="18">버퍼 풀의 페이지를 고침 (더티 페이지)</text>
+<text x="360" y="428" font-size="18">변경 내용은 redo로 로그 버퍼에 쌓음</text>
+<text x="820" y="412" font-size="18" class="muted">데이터 파일은 아직 그대로</text>
+<rect x="40" y="470" width="260" height="90" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="60" y="522" font-size="21">④ COMMIT</text>
+<rect x="340" y="470" width="420" height="90" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="360" y="508" font-size="18">로그 버퍼의 redo 기록을</text>
+<text x="360" y="538" font-size="18">디스크로 내보냄</text>
+<rect x="800" y="470" width="360" height="90" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="820" y="508" font-size="18">redo 로그 파일 끝에 이어 씀</text>
+<text x="820" y="538" font-size="18">끝나면 커밋 완료 응답</text>
+<path d="M760 515 H796" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="580" width="260" height="90" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="60" y="618" font-size="21">⑤ 나중에</text>
+<text x="60" y="648" font-size="18">백그라운드 작업</text>
+<rect x="340" y="580" width="420" height="90" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="360" y="618" font-size="18">페이지 클리너 스레드가</text>
+<text x="360" y="648" font-size="18">더티 페이지를 모아서 내보냄</text>
+<rect x="800" y="580" width="360" height="90" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="820" y="618" font-size="18">doublewrite 영역에 먼저 쓰고</text>
+<text x="820" y="648" font-size="18"><tspan class="code">.ibd</tspan>의 제자리에 기록</text>
+<path d="M760 625 H796" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M32 698 H1168" stroke="#cbd5e1"/>
+<text x="40" y="738" font-size="22">커밋할 때 디스크에 꼭 써야 하는 것은 redo 로그뿐이고, 데이터 페이지는 나중에 기록한다.</text>
+<text x="32" y="776" font-size="16"><tspan class="code">innodb_flush_log_at_trx_commit=1</tspan>(기본값) 기준 · undo 기록도 버퍼 풀을 거치지만 그림에서는 단순화했다.</text>
+</svg>

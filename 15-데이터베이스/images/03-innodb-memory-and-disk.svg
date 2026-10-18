@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">03 · InnoDB는 메모리 구조와 디스크 구조로 나뉜다</title><desc id="desc">메모리에는 버퍼 풀과 로그 버퍼가 있고, 디스크에는 테이블스페이스, redo 로그, undo 로그, doublewrite 버퍼가 있다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}.muted{fill:#64748b}</style>
+<rect width="1200" height="720" fill="#ffffff"/>
+<text x="32" y="45" font-size="28">03 · InnoDB는 메모리 구조와 디스크 구조로 나뉜다</text>
+<text x="32" y="79" font-size="18">읽기와 변경은 메모리에서 하고, 디스크에는 데이터와 장애 복구용 로그를 남긴다.</text>
+<rect x="40" y="110" width="1120" height="225" rx="12" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="64" y="146" font-size="22">메모리</text>
+<rect x="64" y="166" width="580" height="150" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="84" y="202" font-size="21">버퍼 풀</text>
+<text x="84" y="236" font-size="18">테이블과 인덱스의 페이지를 캐시한다</text>
+<text x="84" y="266" font-size="17">기본 128MB, 전용 서버는 물리 메모리의 최대 80% 정도</text>
+<text x="84" y="294" font-size="17">오래 쓰지 않은 페이지부터 내보낸다 (LRU)</text>
+<rect x="670" y="166" width="230" height="150" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="690" y="202" font-size="21">로그 버퍼</text>
+<text x="690" y="236" font-size="18">redo 기록을</text>
+<text x="690" y="264" font-size="18">잠시 모아 두는 곳</text>
+<rect x="926" y="166" width="210" height="150" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="6 5"/>
+<text x="944" y="202" font-size="19" class="muted">8.4에서 기본 꺼짐</text>
+<text x="944" y="236" font-size="17" class="muted">변경 버퍼</text>
+<text x="944" y="264" font-size="17" class="muted">적응형 해시 인덱스</text>
+<text x="216" y="372" font-size="17">위로: 없는 페이지를 읽어 옴</text>
+<text x="216" y="398" font-size="17">아래: 고친 페이지를 나중에 기록</text>
+<text x="680" y="400" font-size="17">커밋할 때 기록</text>
+<rect x="40" y="420" width="1120" height="210" rx="12" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="64" y="447" font-size="22">디스크</text>
+<rect x="64" y="456" width="250" height="150" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="84" y="492" font-size="21">테이블스페이스</text>
+<text x="84" y="526" font-size="18">테이블별 <tspan class="code">.ibd</tspan> 파일</text>
+<text x="84" y="554" font-size="18">데이터와 인덱스 저장</text>
+<rect x="338" y="456" width="250" height="150" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="358" y="492" font-size="21">redo 로그</text>
+<text x="358" y="526" font-size="18">변경 내용을 이어 씀</text>
+<text x="358" y="554" font-size="18">장애 후 재생해 복구</text>
+<rect x="612" y="456" width="250" height="150" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="632" y="492" font-size="21">undo 로그</text>
+<text x="632" y="526" font-size="18">변경 전 값을 보관</text>
+<text x="632" y="554" font-size="18">롤백과 일관된 읽기</text>
+<rect x="886" y="456" width="250" height="150" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="906" y="492" font-size="21">doublewrite 버퍼</text>
+<text x="906" y="526" font-size="18">페이지를 먼저 복사</text>
+<text x="906" y="554" font-size="18">쓰기 중 장애에 대비</text>
+<path d="M160 456 V320" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M200 320 V452" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M785 316 L520 452" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="32" y="692" font-size="16">화살표 = 데이터의 흐름 · 구성은 단순화한 것이며, 페이지와 행의 저장 형태는 14강에서 다룬다.</text>
+</svg>
