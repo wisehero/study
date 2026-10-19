@@ -12,7 +12,7 @@ MySQL 서버는 크게 **SQL을 해석하고 실행 방법을 정하는 MySQL �
 
 ### 두 계층 사이의 요청
 
-실행 엔진은 스토리지 엔진에 "인덱스 순서로 다음 행을 달라", "테이블의 다음 행을 달라" 같은 요청을 한 행씩 보낸다. 이 요청 횟수는 `Handler_read_*` 상태 변수로 확인할 수 있다. [MySQL 상태 변수](https://dev.mysql.com/doc/refman/8.4/en/server-status-variables.html)
+실행 엔진은 **핸들러 API**라는 공통 인터페이스로 스토리지 엔진에 "인덱스 순서로 다음 행을 달라", "테이블의 다음 행을 달라" 같은 요청을 한 행씩 보낸다. 이 요청 횟수는 `Handler_read_*` 상태 변수로 확인할 수 있다. [MySQL 상태 변수](https://dev.mysql.com/doc/refman/8.4/en/server-status-variables.html)
 
 ```sql
 SHOW SESSION STATUS LIKE 'Handler_read%';
@@ -46,6 +46,12 @@ MySQL은 클라이언트 연결마다 전용 스레드를 하나 배정한다. �
 PostgreSQL은 연결마다 백엔드 프로세스를 하나씩 만든다. 이 저장소의 실습 DB가 PostgreSQL이므로 차이를 알아 둔다. [PostgreSQL 연결 방식](https://www.postgresql.org/docs/17/connect-estab.html)
 
 두 DB 모두 연결을 새로 만드는 데 비용이 든다. **Spring 앱이 HikariCP 같은 커넥션 풀로 연결을 미리 만들어 재사용하는 이유가 여기에 있다.** 1장에서 본 것처럼 풀의 연결이 모두 느린 쿼리에 묶이면 다른 요청도 기다린다.
+
+### 동시 연결 수의 상한
+
+MySQL이 받아 주는 동시 연결 수는 `max_connections`로 제한되며 기본값은 151이다. 이를 넘으면 새 연결은 `Too many connections` 오류로 거절된다. [max_connections](https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_max_connections)
+
+**앱 서버 대수 × 커넥션 풀 크기의 합이 `max_connections`를 넘지 않도록 맞춘다.** 예를 들어 풀 크기 10인 앱 서버가 20대면 연결이 최대 200개 필요하므로 기본값 151로는 부족하다. 그렇다고 값을 무작정 올리면 연결마다 스레드와 메모리가 늘어 DB 서버 자원이 먼저 바닥난다. 적정 값은 DB 서버 사양과 부하 테스트에서 응답 시간과 자원 지표가 나빠지기 직전 지점을 보고 정한다.
 
 연결이 아주 많을 때 스레드를 공유해 처리하는 스레드 풀은 MySQL 상용판(Enterprise Edition)의 기능이다. 커뮤니티판의 기본 방식은 연결당 스레드다. [MySQL Enterprise 스레드 풀](https://dev.mysql.com/doc/refman/8.4/en/thread-pool.html)
 

@@ -23,7 +23,7 @@
 
 **버퍼 풀은 InnoDB가 테이블과 인덱스 데이터를 캐시하는 메모리 영역이다.** 자주 쓰는 데이터를 메모리에서 바로 읽으므로 디스크 읽기가 줄어든다. 데이터는 행 하나가 아니라 여러 행이 담긴 **페이지** 단위로 올라온다. [버퍼 풀](https://dev.mysql.com/doc/refman/8.4/en/innodb-buffer-pool.html)
 
-크기는 `innodb_buffer_pool_size`로 정하며 기본값은 128MB다. DB만 돌리는 전용 서버에서는 물리 메모리의 최대 80% 정도를 버퍼 풀에 주는 경우가 많다. **기본값 128MB를 그대로 두면 데이터가 조금만 커져도 디스크 읽기가 늘어난다.** 운영 DB의 설정값을 꼭 확인한다. [버퍼 풀 크기 설정](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_buffer_pool_size)
+크기는 `innodb_buffer_pool_size`로 정하며 기본값은 128MB다. DB만 돌리는 전용 서버에서는 OS와 다른 프로세스가 쓸 몫을 빼고 물리 메모리의 60~80% 정도를 버퍼 풀에 준다. 공식 문서도 최대 80% 정도를 할당하는 경우가 많다고 설명한다. **기본값 128MB를 그대로 두면 데이터가 조금만 커져도 디스크 읽기가 늘어난다.** 운영 DB의 설정값을 꼭 확인한다. [버퍼 풀 크기 설정](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_buffer_pool_size)
 
 ### 자주 쓰는 페이지를 지키는 LRU
 
@@ -40,7 +40,11 @@ SHOW GLOBAL STATUS LIKE 'Innodb_buffer_pool_read%';
 - `Innodb_buffer_pool_read_requests`: 페이지를 읽으려 한 전체 횟수.
 - `Innodb_buffer_pool_reads`: 그중 버퍼 풀에 없어 디스크에서 읽어야 했던 횟수.
 
-**두 번째 값이 첫 번째 값에 비해 크게 늘면 버퍼 풀이 작거나, 큰 범위를 훑는 쿼리가 있다는 신호다.** [MySQL 상태 변수](https://dev.mysql.com/doc/refman/8.4/en/server-status-variables.html)
+버퍼 풀 적중률은 `1 - (Innodb_buffer_pool_reads ÷ Innodb_buffer_pool_read_requests)`로 계산한다. [MySQL 상태 변수](https://dev.mysql.com/doc/refman/8.4/en/server-status-variables.html)
+
+강의에서는 실시간 요청이 많은 온라인 서비스라면 99% 이상을 양호로 보고, 95% 수준으로 떨어지면 디스크 I/O가 늘어난 것이니 버퍼 풀 크기나 쿼리를 점검하라고 제시한다. 대량 배치나 분석용 쿼리가 도는 서버는 원래 적중률이 낮게 나올 수 있으므로 서비스 성격과 함께 판단한다. **적중률이 떨어지면 버퍼 풀이 작거나, 큰 범위를 훑는 쿼리가 있다는 신호다.**
+
+DB 서버를 재시작한 직후에는 버퍼 풀이 비어 있어 한동안 느리다. 그래서 운영에서는 서비스에 투입하기 전에 자주 쓰는 데이터를 미리 읽어 버퍼 풀을 채우기도 한다.
 
 ## 3 redo 로그: 빠르게 쓰고 안전하게 남기기
 
