@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+<title id="title">06 · 감으로 고칠 때와 EXPLAIN으로 고칠 때</title><desc id="desc">감으로 인덱스를 추가하면 효과 없이 인덱스만 쌓이는 악순환에 빠지고, EXPLAIN으로 원인을 먼저 보면 한 곳을 고치고 전후를 비교해 검증한다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}.muted{fill:#64748b}</style>
+<rect width="1200" height="640" fill="#ffffff"/>
+<text x="32" y="45" font-size="28">06 · 감으로 고칠 때와 EXPLAIN으로 고칠 때</text>
+<text x="32" y="79" font-size="18">같은 느린 쿼리라도 원인을 먼저 보느냐에 따라 결과가 갈린다.</text>
+<text x="40" y="132" font-size="22">감으로 대응</text>
+<rect x="40" y="150" width="196" height="96" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="56" y="184" font-size="19">상품 검색이 느림</text>
+<rect x="266" y="150" width="196" height="96" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="282" y="184" font-size="19"><tspan class="code">price</tspan> 인덱스 추가</text>
+<text x="282" y="212" font-size="16">추측으로 고른 컬럼</text>
+<rect x="492" y="150" width="196" height="96" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="508" y="184" font-size="19">그대로 느림</text>
+<text x="508" y="212" font-size="16">옵티마이저는</text>
+<text x="508" y="234" font-size="16">다른 인덱스를 고름</text>
+<rect x="718" y="150" width="196" height="96" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="734" y="184" font-size="19">인덱스 또 추가</text>
+<text x="734" y="212" font-size="16">원인은 여전히</text>
+<text x="734" y="234" font-size="16">모르는 채로</text>
+<rect x="944" y="150" width="216" height="96" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="6 5"/>
+<text x="960" y="184" font-size="19">남는 것</text>
+<text x="960" y="212" font-size="16">쓰기 지연, 디스크 낭비,</text>
+<text x="960" y="234" font-size="16">관리 안 되는 인덱스</text>
+<path d="M236 198 H262" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M462 198 H488" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M688 198 H714" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M914 198 H940" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M816 246 V290 H364 V250" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<text x="430" y="316" font-size="16">효과가 없으면 또 추가하는 악순환</text>
+<path d="M32 344 H1168" stroke="#cbd5e1"/>
+<text x="40" y="388" font-size="22">EXPLAIN으로 대응</text>
+<rect x="40" y="406" width="196" height="96" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="56" y="440" font-size="19">상품 검색이 느림</text>
+<rect x="266" y="406" width="196" height="96" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="282" y="440" font-size="19">EXPLAIN 실행</text>
+<text x="282" y="468" font-size="16">실행하지 않고</text>
+<text x="282" y="490" font-size="16">계획만 확인</text>
+<rect x="492" y="406" width="196" height="96" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="508" y="440" font-size="19">원인 특정</text>
+<text x="508" y="468" font-size="16"><tspan class="code">key</tspan>, <tspan class="code">rows</tspan>,</text>
+<text x="508" y="490" font-size="16"><tspan class="code">Extra</tspan> 확인</text>
+<rect x="718" y="406" width="196" height="96" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="734" y="440" font-size="19">인덱스·쿼리 수정</text>
+<text x="734" y="468" font-size="16">원인에 맞춰</text>
+<text x="734" y="490" font-size="16">한 곳만 고침</text>
+<rect x="944" y="406" width="216" height="96" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="960" y="440" font-size="19">전후 비교</text>
+<text x="960" y="468" font-size="16">실행 계획과</text>
+<text x="960" y="490" font-size="16">실행 시간으로 검증</text>
+<path d="M236 454 H262" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M462 454 H488" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M688 454 H714" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M914 454 H940" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="40" y="560" font-size="18">강의 실습에서는 <tspan class="code">price</tspan> 인덱스 하나로 테이블 크기가 약 120MB에서 216MB로 늘었지만 조회는 빨라지지 않았다.</text>
+<text x="32" y="616" font-size="16">주황 = 추측에 기댄 단계 · 초록 = 근거를 보고 하는 단계 · 흐름은 단순화한 것이다.</text>
+</svg>
