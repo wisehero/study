@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">07 · EXPLAIN 출력 12개 컬럼과 읽는 순서</title><desc id="desc">EXPLAIN 결과의 12개 컬럼을 구조, 접근 방식, 인덱스, 추정치, 추가 정보의 다섯 묶음으로 나누고 그 순서로 읽는다.</desc>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}.muted{fill:#64748b}</style>
+<rect width="1200" height="600" fill="#ffffff"/>
+<text x="32" y="45" font-size="28">07 · EXPLAIN 출력 12개 컬럼과 읽는 순서</text>
+<text x="32" y="79" font-size="18">왼쪽부터 차례로 읽기보다 다섯 묶음으로 나눠 ①부터 ⑤까지 읽는다.</text>
+<text x="171" y="146" font-size="18" text-anchor="middle">① 구조</text>
+<path d="M49 162 V156 H293 V162" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="475" y="146" font-size="18" text-anchor="middle">② 접근 방식</text>
+<path d="M421 162 V156 H529 V162" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="705" y="146" font-size="18" text-anchor="middle">③ 인덱스</text>
+<path d="M538 162 V156 H873 V162" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="958" y="146" font-size="18" text-anchor="middle">④ 추정치</text>
+<path d="M882 162 V156 H1034 V162" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="1097" y="146" font-size="18" text-anchor="middle">⑤ 추가 정보</text>
+<path d="M1043 162 V156 H1151 V162" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="47" y="172" width="48" height="48" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="71" y="202" font-size="16" class="code" text-anchor="middle">id</text>
+<rect x="100" y="172" width="124" height="48" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="162" y="202" font-size="16" class="code" text-anchor="middle">select_type</text>
+<rect x="229" y="172" width="66" height="48" rx="6" fill="#f1f5f9" stroke="#94a3b8"/>
+<text x="262" y="202" font-size="16" class="code" text-anchor="middle">table</text>
+<rect x="300" y="172" width="114" height="48" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="5 4"/>
+<text x="357" y="202" font-size="16" class="code muted" text-anchor="middle">partitions</text>
+<rect x="419" y="172" width="112" height="48" rx="6" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="475" y="202" font-size="16" class="code" text-anchor="middle">type</text>
+<rect x="536" y="172" width="143" height="48" rx="6" fill="#fff1df" stroke="#94a3b8"/>
+<text x="607" y="202" font-size="16" class="code" text-anchor="middle">possible_keys</text>
+<rect x="684" y="172" width="48" height="48" rx="6" fill="#fff1df" stroke="#94a3b8"/>
+<text x="708" y="202" font-size="16" class="code" text-anchor="middle">key</text>
+<rect x="736" y="172" width="85" height="48" rx="6" fill="#fff1df" stroke="#94a3b8"/>
+<text x="779" y="202" font-size="16" class="code" text-anchor="middle">key_len</text>
+<rect x="827" y="172" width="48" height="48" rx="6" fill="#fff1df" stroke="#94a3b8"/>
+<text x="851" y="202" font-size="16" class="code" text-anchor="middle">ref</text>
+<rect x="880" y="172" width="56" height="48" rx="6" fill="#eaf1fb" stroke="#94a3b8"/>
+<text x="908" y="202" font-size="16" class="code" text-anchor="middle">rows</text>
+<rect x="941" y="172" width="95" height="48" rx="6" fill="#eaf1fb" stroke="#94a3b8"/>
+<text x="988" y="202" font-size="16" class="code" text-anchor="middle">filtered</text>
+<rect x="1041" y="172" width="112" height="48" rx="6" fill="#f6eefc" stroke="#94a3b8"/>
+<text x="1097" y="202" font-size="16" class="code" text-anchor="middle">Extra</text>
+<rect x="40" y="254" width="1120" height="44" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="60" y="282" font-size="18">① 구조</text>
+<text x="200" y="282" font-size="17">어느 SELECT의 어느 테이블에 대한 행인가. 같은 id는 같은 SELECT 안에서 조인된다.</text>
+<rect x="40" y="310" width="1120" height="44" rx="8" fill="#e8f4ef" stroke="#cbd5e1"/>
+<text x="60" y="338" font-size="18">② 접근 방식</text>
+<text x="200" y="338" font-size="17">테이블을 어떻게 읽는가. 한 건만 찾는지, 범위를 읽는지, 전체를 훑는지.</text>
+<rect x="40" y="366" width="1120" height="44" rx="8" fill="#fff1df" stroke="#cbd5e1"/>
+<text x="60" y="394" font-size="18">③ 인덱스</text>
+<text x="200" y="394" font-size="17">후보 인덱스와 실제로 고른 인덱스, 그 인덱스를 어디까지 무엇과 비교해 쓰는가.</text>
+<rect x="40" y="422" width="1120" height="44" rx="8" fill="#eaf1fb" stroke="#cbd5e1"/>
+<text x="60" y="450" font-size="18">④ 추정치</text>
+<text x="200" y="450" font-size="17">몇 행을 읽을 것으로 보는가. rows × filtered가 다음 테이블로 넘어갈 행 수다.</text>
+<rect x="40" y="478" width="1120" height="44" rx="8" fill="#f6eefc" stroke="#cbd5e1"/>
+<text x="60" y="506" font-size="18">⑤ 추가 정보</text>
+<text x="200" y="506" font-size="17">인덱스만으로 끝나는지, 따로 정렬하는지, 임시 테이블을 만드는지.</text>
+<text x="32" y="580" font-size="16">점선 칸 partitions는 분할(파티션) 테이블이 아니면 NULL이다 · 각 컬럼의 자세한 값은 19~24강에서 다룬다.</text>
+</svg>
