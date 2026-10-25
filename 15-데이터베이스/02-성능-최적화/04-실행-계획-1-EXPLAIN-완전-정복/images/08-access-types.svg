@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">08 · type 값과 읽는 범위</title><desc id="desc">const, eq_ref, ref, range, index, ALL 순서로 갈수록 인덱스나 테이블에서 읽는 범위가 넓어진다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif;fill:#172b4d}.code{font-family:Menlo,"Apple SD Gothic Neo",monospace}.muted{fill:#64748b}</style>
+<rect width="1200" height="760" fill="#ffffff"/>
+<text x="32" y="45" font-size="28">08 · type 값과 읽는 범위</text>
+<text x="32" y="79" font-size="18">위에서 아래로 갈수록 읽는 범위가 넓어진다. 자주 보는 여섯 가지만 추렸다.</text>
+<text x="790" y="126" font-size="16" class="muted">인덱스나 테이블에서 읽는 부분 (칸 16개 = 전체)</text>
+<rect x="40" y="140" width="140" height="72" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="110" y="184" font-size="22" class="code" text-anchor="middle">const</text>
+<text x="204" y="170" font-size="18">기본키·UNIQUE 인덱스의 모든 컬럼을 상수와 비교</text>
+<text x="204" y="198" font-size="16" class="muted">최대 1건, 쿼리 시작 때 한 번만 읽음</text>
+<rect x="790" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="813" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="836" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="859" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="882" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="905" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="928" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="951" y="154" width="20" height="26" rx="3" fill="#e8f4ef" stroke="#334155" stroke-width="1.5"/>
+<rect x="974" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="997" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1020" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1043" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1066" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1089" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1112" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1135" y="154" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="790" y="204" font-size="15" class="muted">1건</text>
+<rect x="40" y="232" width="140" height="72" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="110" y="276" font-size="22" class="code" text-anchor="middle">eq_ref</text>
+<text x="204" y="262" font-size="18">조인에서 기본키·UNIQUE NOT NULL 인덱스로 연결</text>
+<text x="204" y="290" font-size="16" class="muted">앞 테이블의 행 하나마다 정확히 1건</text>
+<rect x="790" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="813" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="836" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="859" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="882" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="905" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="928" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="951" y="246" width="20" height="26" rx="3" fill="#e8f4ef" stroke="#334155" stroke-width="1.5"/>
+<rect x="974" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="997" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1020" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1043" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1066" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1089" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1112" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1135" y="246" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="790" y="296" font-size="15" class="muted">앞 테이블 행마다 1건</text>
+<rect x="40" y="324" width="140" height="72" rx="10" fill="#e8f4ef" stroke="#94a3b8"/>
+<text x="110" y="368" font-size="22" class="code" text-anchor="middle">ref</text>
+<text x="204" y="354" font-size="18">UNIQUE가 아닌 인덱스나 복합 인덱스의 앞부분을 = 비교</text>
+<text x="204" y="382" font-size="16" class="muted">같은 값을 가진 여러 건</text>
+<rect x="790" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="813" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="836" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="859" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="882" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="905" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="928" y="338" width="20" height="26" rx="3" fill="#e8f4ef" stroke="#334155" stroke-width="1.5"/>
+<rect x="951" y="338" width="20" height="26" rx="3" fill="#e8f4ef" stroke="#334155" stroke-width="1.5"/>
+<rect x="974" y="338" width="20" height="26" rx="3" fill="#e8f4ef" stroke="#334155" stroke-width="1.5"/>
+<rect x="997" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1020" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1043" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1066" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1089" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1112" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1135" y="338" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="790" y="388" font-size="15" class="muted">같은 값인 몇 건</text>
+<rect x="40" y="416" width="140" height="72" rx="10" fill="#eaf1fb" stroke="#94a3b8"/>
+<text x="110" y="460" font-size="22" class="code" text-anchor="middle">range</text>
+<text x="204" y="446" font-size="18">인덱스 컬럼을 범위 조건으로 비교</text>
+<text x="204" y="474" font-size="16" class="muted">BETWEEN, IN, &gt;, &lt;, LIKE 'abc%' 등</text>
+<rect x="790" y="430" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="813" y="430" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="836" y="430" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="859" y="430" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="882" y="430" width="20" height="26" rx="3" fill="#eaf1fb" stroke="#334155" stroke-width="1.5"/>
+<rect x="905" y="430" width="20" height="26" rx="3" fill="#eaf1fb" stroke="#334155" stroke-width="1.5"/>
+<rect x="928" y="430" width="20" height="26" rx="3" fill="#eaf1fb" stroke="#334155" stroke-width="1.5"/>
+<rect x="951" y="430" width="20" height="26" rx="3" fill="#eaf1fb" stroke="#334155" stroke-width="1.5"/>
+<rect x="974" y="430" width="20" height="26" rx="3" fill="#eaf1fb" stroke="#334155" stroke-width="1.5"/>
+<rect x="997" y="430" width="20" height="26" rx="3" fill="#eaf1fb" stroke="#334155" stroke-width="1.5"/>
+<rect x="1020" y="430" width="20" height="26" rx="3" fill="#eaf1fb" stroke="#334155" stroke-width="1.5"/>
+<rect x="1043" y="430" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1066" y="430" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1089" y="430" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1112" y="430" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="1135" y="430" width="20" height="26" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="790" y="480" font-size="15" class="muted">범위 안의 행</text>
+<rect x="40" y="508" width="140" height="72" rx="10" fill="#fff1df" stroke="#94a3b8"/>
+<text x="110" y="552" font-size="22" class="code" text-anchor="middle">index</text>
+<text x="204" y="538" font-size="18">인덱스 트리 전체를 처음부터 끝까지</text>
+<text x="204" y="566" font-size="16" class="muted">커버링이면 Extra에 Using index</text>
+<rect x="790" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="813" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="836" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="859" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="882" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="905" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="928" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="951" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="974" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="997" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="1020" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="1043" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="1066" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="1089" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="1112" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<rect x="1135" y="522" width="20" height="26" rx="3" fill="#fff1df" stroke="#334155" stroke-width="1.5"/>
+<text x="790" y="572" font-size="15" class="muted">인덱스 전체</text>
+<rect x="40" y="600" width="140" height="72" rx="10" fill="#fde8e8" stroke="#94a3b8"/>
+<text x="110" y="644" font-size="22" class="code" text-anchor="middle">ALL</text>
+<text x="204" y="630" font-size="18">테이블 전체를 처음부터 끝까지</text>
+<text x="204" y="658" font-size="16" class="muted">조건에 쓸 인덱스가 없을 때</text>
+<rect x="790" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="813" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="836" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="859" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="882" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="905" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="928" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="951" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="974" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="997" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="1020" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="1043" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="1066" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="1089" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="1112" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<rect x="1135" y="614" width="20" height="26" rx="3" fill="#fde8e8" stroke="#334155" stroke-width="1.5"/>
+<text x="790" y="664" font-size="15" class="muted">테이블 전체</text>
+<path d="M24 150 V652" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="40" y="712" font-size="17">초록 = 인덱스로 필요한 행만 찾음 · 파랑 = 인덱스로 범위를 읽음 · 주황·빨강 = 전부 훑음</text>
+<text x="32" y="754" font-size="16">system(행이 하나뿐인 테이블)과 fulltext, ref_or_null, index_merge, unique_subquery, index_subquery는 본문에서 다룬다.</text>
+</svg>
