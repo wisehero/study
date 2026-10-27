@@ -54,15 +54,21 @@ body { word-break: keep-all; overflow-wrap: break-word; }
 }
 .sidebar-toggle { display: none; }
 @media (min-width: 960px) {
-  .sidebar-toggle { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; margin-right: auto; border-radius: 8px; color: var(--vp-c-text-2); transition: color 0.25s, background-color 0.25s; }
+  /* 버튼은 제목 영역 끝에 붙으므로 순서를 앞으로 당겨 제목 왼쪽에 둔다. 버튼이 붙기 전에는 같은 폭을 비워 두어 제목이 움직이지 않게 한다 */
+  .VPNavBar.has-sidebar .title { display: flex; align-items: center; }
+  .VPNavBar.has-sidebar .title:not(:has(.sidebar-toggle)) .VPNavBarTitle { margin-left: 44px; }
+  .VPNavBar.has-sidebar .title .VPNavBarTitle { flex: 1; }
+  /* 제목 아래 선을 버튼까지 포함해 사이드바 내용 폭만큼 긋는다 */
+  html .VPNavBar .VPNavBarTitle.has-sidebar .title { border-bottom-color: transparent; }
+  html .VPNavBar.has-sidebar .container > .title { background: linear-gradient(var(--vp-c-divider), var(--vp-c-divider)) content-box no-repeat left bottom / 100% 1px; }
+  .sidebar-toggle { display: flex; flex-shrink: 0; align-items: center; justify-content: center; order: -1; width: 36px; height: 36px; margin-right: 8px; border-radius: 8px; color: var(--vp-c-text-2); transition: color 0.25s, background-color 0.25s; }
   .sidebar-toggle:hover { color: var(--vp-c-text-1); background-color: var(--vp-c-default-soft); }
   .sidebar-toggle:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }
   /* 접으면 사이드바가 없는 페이지와 같은 폭으로 본문과 목차를 가운데 모으고, 상단 바의 구분선을 끝까지 잇는다 */
   html.sidebar-hidden .VPSidebar { opacity: 0; visibility: hidden; transform: translateX(-100%); }
   html.sidebar-hidden .VPContent.has-sidebar { padding-right: 0; padding-left: 0; }
   html.sidebar-hidden .VPDoc.has-sidebar .container { max-width: 992px; }
-  html.sidebar-hidden .VPNavBar.has-sidebar .title { background-color: var(--vp-nav-bg-color); }
-  html.sidebar-hidden .VPNavBarTitle.has-sidebar .title { border-bottom-color: transparent; }
+  html.sidebar-hidden .VPNavBar.has-sidebar .container > .title { background: var(--vp-nav-bg-color); }
   html.sidebar-hidden .VPNavBar.has-sidebar .divider { padding-left: 0; }
 }
 @media (min-width: 1440px) {
