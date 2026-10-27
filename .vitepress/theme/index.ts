@@ -3,12 +3,14 @@ import { h } from 'vue';
 import StudyHome from './StudyHome.vue';
 import MermaidDiagram from './MermaidDiagram.vue';
 import ImageViewer from './ImageViewer.vue';
+import SidebarToggle from './SidebarToggle.vue';
 import './style.css';
 
 export default {
   extends: DefaultTheme,
   Layout: () => h(DefaultTheme.Layout, null, {
     'home-hero-before': () => h(StudyHome),
+    'nav-bar-content-before': () => h(SidebarToggle),
     'layout-bottom': () => h(ImageViewer)
   }),
   enhanceApp({ app }) {
