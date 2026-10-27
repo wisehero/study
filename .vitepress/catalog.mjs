@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -31,9 +31,17 @@ export const subjects = readdirSync(root).filter(name => /^\d{2}-/.test(name)).s
   };
 });
 
+// 인사이트는 "회사 이름 - 제목.md" 파일 이름을 그대로 메뉴 이름으로 쓴다
+const insightFolder = '인사이트';
+const insights = existsSync(join(root, insightFolder))
+  ? readdirSync(join(root, insightFolder)).filter(name => name.endsWith('.md')).sort(sort)
+    .map(name => ({ text: name.replace(/\.md$/, ''), link: pageLink(`${insightFolder}/${name}`) }))
+  : [];
+
 export const sidebar = [
   { text: '전체 공부 목표', link: pageLink('공부 목표.md') },
   ...subjects.map(subject => ({ text: `${subject.number} ${subject.text}`, collapsed: true, items: subject.items })),
+  ...(insights.length ? [{ text: '인사이트', collapsed: true, items: insights }] : []),
   { text: '실습 프로젝트', collapsed: true, items: [
     { text: 'Java Lab', link: '/java-lab/README' },
     { text: 'Spring Lab', link: '/spring-lab/README' },
