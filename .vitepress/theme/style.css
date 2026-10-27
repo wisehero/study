@@ -52,3 +52,12 @@ body { word-break: keep-all; overflow-wrap: break-word; }
   .vp-doc th, .vp-doc td { padding: 8px 10px; }
   .vp-doc td:not(.short-cell) { min-width: 7.5em; }
 }
+.sidebar-toggle { display: none; }
+@media (min-width: 960px) {
+  .sidebar-toggle { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; margin-right: auto; border-radius: 8px; color: var(--vp-c-text-2); transition: color 0.25s, background-color 0.25s; }
+  .sidebar-toggle:hover { color: var(--vp-c-text-1); background-color: var(--vp-c-default-soft); }
+  .sidebar-toggle:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }
+  .sidebar-hidden .VPSidebar { opacity: 0; visibility: hidden; transform: translateX(-100%); }
+  .sidebar-hidden .VPContent.has-sidebar { padding-right: 0; padding-left: 0; }
+  .sidebar-hidden .VPNavBar.has-sidebar .title { background-color: var(--vp-nav-bg-color); }
+}

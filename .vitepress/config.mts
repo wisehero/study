@@ -9,7 +9,11 @@ export default defineConfig({
   base: '/study/',
   cleanUrls: false,
   srcExclude: ['AGENTS.md', '**/build/**', '**/.gradle/**', 'node_modules/**'],
-  head: [['meta', { name: 'theme-color', content: '#2563eb' }]],
+  head: [
+    ['meta', { name: 'theme-color', content: '#2563eb' }],
+    // 화면을 그리기 전에 접어 둔 사이드바 상태를 적용해 깜빡임을 막는다
+    ['script', {}, "try{if(localStorage.getItem('sidebar-hidden')==='1')document.documentElement.classList.add('sidebar-hidden')}catch(e){}"]
+  ],
   themeConfig: {
     nav: [
       { text: '전체 목표', link: pageLink('공부 목표.md') },
