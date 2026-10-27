@@ -57,7 +57,14 @@ body { word-break: keep-all; overflow-wrap: break-word; }
   .sidebar-toggle { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; margin-right: auto; border-radius: 8px; color: var(--vp-c-text-2); transition: color 0.25s, background-color 0.25s; }
   .sidebar-toggle:hover { color: var(--vp-c-text-1); background-color: var(--vp-c-default-soft); }
   .sidebar-toggle:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }
-  .sidebar-hidden .VPSidebar { opacity: 0; visibility: hidden; transform: translateX(-100%); }
-  .sidebar-hidden .VPContent.has-sidebar { padding-right: 0; padding-left: 0; }
-  .sidebar-hidden .VPNavBar.has-sidebar .title { background-color: var(--vp-nav-bg-color); }
+  /* 접으면 사이드바가 없는 페이지와 같은 폭으로 본문과 목차를 가운데 모으고, 상단 바의 구분선을 끝까지 잇는다 */
+  html.sidebar-hidden .VPSidebar { opacity: 0; visibility: hidden; transform: translateX(-100%); }
+  html.sidebar-hidden .VPContent.has-sidebar { padding-right: 0; padding-left: 0; }
+  html.sidebar-hidden .VPDoc.has-sidebar .container { max-width: 992px; }
+  html.sidebar-hidden .VPNavBar.has-sidebar .title { background-color: var(--vp-nav-bg-color); }
+  html.sidebar-hidden .VPNavBarTitle.has-sidebar .title { border-bottom-color: transparent; }
+  html.sidebar-hidden .VPNavBar.has-sidebar .divider { padding-left: 0; }
+}
+@media (min-width: 1440px) {
+  html.sidebar-hidden .VPDoc.has-sidebar .container { max-width: 1104px; }
 }
