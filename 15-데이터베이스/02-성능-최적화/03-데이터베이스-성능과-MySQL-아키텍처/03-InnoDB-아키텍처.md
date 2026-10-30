@@ -2,7 +2,7 @@
 
 2장에서 MySQL의 실제 데이터 저장은 스토리지 엔진이 맡고, 기본 스토리지 엔진은 InnoDB라는 것을 봤다. 이번 장에서는 InnoDB 안을 **메모리 구조와 디스크 구조**로 나눠 보고, **변경을 빠르게 처리하면서도 장애에 데이터를 잃지 않는 방법**을 정리한다. 강의 섹션 3의 13강에 해당한다.
 
-## 1 메모리 구조와 디스크 구조
+## 1. 메모리 구조와 디스크 구조
 
 **InnoDB는 데이터를 읽고 고치는 일을 메모리에서 하고, 디스크에는 데이터와 장애 복구용 로그를 남긴다.** [InnoDB 구조](https://dev.mysql.com/doc/refman/8.4/en/innodb-architecture.html)
 
@@ -19,7 +19,7 @@
 
 테이블스페이스는 기본적으로 테이블마다 파일 하나로 만들어진다. `orders` 테이블이면 `orders.ibd` 파일 하나에 데이터와 인덱스가 함께 들어간다. [테이블별 테이블스페이스](https://dev.mysql.com/doc/refman/8.4/en/innodb-file-per-table-tablespaces.html)
 
-## 2 버퍼 풀
+## 2. 버퍼 풀
 
 **버퍼 풀은 InnoDB가 테이블과 인덱스 데이터를 캐시하는 메모리 영역이다.** 자주 쓰는 데이터를 메모리에서 바로 읽으므로 디스크 읽기가 줄어든다. 데이터는 행 하나가 아니라 여러 행이 담긴 **페이지** 단위로 올라온다. [버퍼 풀](https://dev.mysql.com/doc/refman/8.4/en/innodb-buffer-pool.html)
 
@@ -46,7 +46,7 @@ SHOW GLOBAL STATUS LIKE 'Innodb_buffer_pool_read%';
 
 DB 서버를 재시작한 직후에는 버퍼 풀이 비어 있어 한동안 느리다. 그래서 운영에서는 서비스에 투입하기 전에 자주 쓰는 데이터를 미리 읽어 버퍼 풀을 채우기도 한다.
 
-## 3 redo 로그: 빠르게 쓰고 안전하게 남기기
+## 3. redo 로그: 빠르게 쓰고 안전하게 남기기
 
 UPDATE를 실행하면 InnoDB는 데이터 파일을 바로 고치지 않는다. 버퍼 풀에 있는 페이지만 고친다. 이렇게 고쳤지만 아직 디스크에 쓰지 않은 페이지를 **더티 페이지**라고 한다. 더티 페이지는 나중에 페이지 클리너 스레드가 모아서 디스크에 기록한다. [버퍼 풀 플러시](https://dev.mysql.com/doc/refman/8.4/en/innodb-buffer-pool-flushing.html)
 
@@ -68,17 +68,17 @@ UPDATE를 실행하면 InnoDB는 데이터 파일을 바로 고치지 않는다.
 
 공식 문서는 완전한 ACID를 지키려면 기본값 1이 필요하다고 설명한다. **0이나 2로 바꾸면 쓰기가 빨라지는 대신 커밋했다고 응답한 데이터를 잃을 수 있다.**
 
-## 4 undo 로그: 변경 전 값
+## 4. undo 로그: 변경 전 값
 
 **undo 로그는 트랜잭션이 고치기 전의 값을 보관한다.** 롤백하면 이 값으로 되돌린다. 다른 트랜잭션이 아직 커밋되지 않은 변경 대신 이전 값을 읽어야 할 때도 undo 로그를 쓴다. 이것이 일관된 읽기(consistent read)다. [undo 로그](https://dev.mysql.com/doc/refman/8.4/en/innodb-undo-logs.html)
 
 그래서 **오래 열려 있는 트랜잭션은 성능 문제를 만든다.** 그 트랜잭션이 이전 값을 볼 수도 있으므로 InnoDB는 관련 undo 기록을 지우지 못하고, undo 영역이 계속 커진다. 공식 문서는 읽기만 하는 트랜잭션이라도 주기적으로 커밋하라고 권한다. [InnoDB 다중 버전](https://dev.mysql.com/doc/refman/8.4/en/innodb-multi-versioning.html) 트랜잭션과 격리 수준은 [트랜잭션과 데이터 정합성](../../../03-트랜잭션과-데이터-정합성/공부%20목표.md)에서 이어서 다룬다.
 
-## 5 doublewrite 버퍼
+## 5. doublewrite 버퍼
 
 페이지를 디스크에 쓰는 도중 서버나 OS, 저장 장치에 장애가 나면 페이지가 반만 써진 채 남을 수 있다. InnoDB는 이를 대비해 **더티 페이지를 데이터 파일의 제자리에 쓰기 전에 doublewrite 버퍼라는 영역에 먼저 쓴다.** 복구할 때 제자리의 페이지가 깨져 있으면 doublewrite 버퍼에서 온전한 사본을 찾는다. [doublewrite 버퍼](https://dev.mysql.com/doc/refman/8.4/en/innodb-doublewrite-buffer.html)
 
-## 6 MySQL 8.4에서 기본으로 꺼진 기능
+## 6. MySQL 8.4에서 기본으로 꺼진 기능
 
 자료에 따라 InnoDB 메모리 구조에 다음 두 가지가 함께 나온다. MySQL 8.4에서는 둘 다 기본으로 꺼져 있다. 8.0과 기본값이 다르니 버전을 확인하고 읽는다. [MySQL 8.4 변경 사항](https://dev.mysql.com/doc/refman/8.4/en/mysql-nutshell.html)
 

@@ -2,7 +2,7 @@
 
 7장에서 `EXPLAIN` 결과를 다섯 묶음으로 나눠 읽는다고 했다. 이번 장은 그중 가장 먼저 보는 **`type` 컬럼, 곧 테이블을 어떤 방식으로 읽는지**를 정리한다. 값마다 언제 나오는지, 얼마나 읽는지, 언제 문제가 되는지를 본다. 강의 섹션 4의 19·20강에 해당한다.
 
-## 1 type이 알려 주는 것
+## 1. type이 알려 주는 것
 
 **`type`은 MySQL이 그 테이블에서 행을 어떤 방식으로 찾는지 보여 준다.** 공식 문서는 이 값을 조인 유형(join type)이라고 부르고, 좋은 것부터 나쁜 것 순서로 나열한다. [EXPLAIN 조인 유형](https://dev.mysql.com/doc/refman/8.4/en/explain-output.html#explain-join-types)
 
@@ -15,7 +15,7 @@ system > const > eq_ref > ref > fulltext > ref_or_null > index_merge
 
 ![const, eq_ref, ref, range, index, ALL 순서로 인덱스나 테이블에서 읽는 범위가 넓어지는 모습](images/08-access-types.svg)
 
-## 2 한 건만 찾는 유형: system, const, eq_ref
+## 2. 한 건만 찾는 유형: system, const, eq_ref
 
 ### const
 
@@ -42,7 +42,7 @@ JOIN member m ON m.id = o.member_id;   -- member는 기본키로 찾으므로 eq
 
 이때 `ref` 컬럼에는 비교 대상인 `o.member_id`가 나온다. **UNIQUE 인덱스라도 컬럼이 NULL을 허용하면 `eq_ref`가 되지 않는다.** NULL은 UNIQUE 인덱스에서도 여러 행에 들어갈 수 있어 정확히 한 건을 보장하지 못하기 때문이다. [CREATE INDEX](https://dev.mysql.com/doc/refman/8.4/en/create-index.html)
 
-## 3 같은 값을 여러 건 찾는 유형: ref
+## 3. 같은 값을 여러 건 찾는 유형: ref
 
 **UNIQUE가 아닌 인덱스로 `=` 비교하거나, 복합 인덱스의 앞쪽 컬럼만 `=` 비교하면 `ref`가 된다.** 같은 값을 가진 행이 여러 건일 수 있다는 점이 `const`, `eq_ref`와 다르다.
 
@@ -55,7 +55,7 @@ SELECT * FROM product WHERE category_id = 3;
 
 `ref_or_null`은 `ref`에 더해 NULL인 행을 한 번 더 찾는 방식이다. `WHERE key_col = 7 OR key_col IS NULL` 같은 조건에서 나온다.
 
-## 4 범위를 읽는 유형: range
+## 4. 범위를 읽는 유형: range
 
 **인덱스 컬럼을 범위 조건으로 비교하면 `range`가 된다.** 인덱스에서 범위의 시작을 찾은 뒤, 범위가 끝날 때까지 이어서 읽는다.
 
@@ -69,7 +69,7 @@ SELECT * FROM product WHERE name LIKE '노트북%';
 
 **`range`는 인덱스를 잘 쓰고 있다는 뜻이지만, 범위가 넓으면 느리다.** 한 달 치를 조회하는 쿼리와 5년 치를 조회하는 쿼리는 같은 `range`라도 읽는 양이 전혀 다르다. 범위가 테이블의 큰 비율을 차지하면 옵티마이저는 아예 `ALL`을 고르기도 한다(6장). 인덱스가 없는 컬럼에 범위 조건을 걸면 `range`가 아니라 `ALL`이 된다.
 
-## 5 전부 훑는 유형: index, ALL
+## 5. 전부 훑는 유형: index, ALL
 
 ### index
 
@@ -86,13 +86,13 @@ SELECT * FROM product WHERE name LIKE '노트북%';
 
 다만 **`ALL`이 항상 나쁜 것은 아니다.** 행이 수십~수천 건인 작은 테이블은 인덱스를 거치는 것보다 그냥 읽는 편이 빠를 수 있다. 개선 대상은 데이터가 많은 테이블에서 나오는 `ALL`이다.
 
-## 6 그 밖의 값
+## 6. 그 밖의 값
 
 - `fulltext`: 전문(FULLTEXT) 인덱스로 찾는다.
 - `index_merge`: 인덱스 여러 개를 함께 써서 결과를 합친다. `key`에 인덱스 목록이 나온다(섹션 11).
 - `unique_subquery`, `index_subquery`: `IN (SELECT ...)` 서브쿼리를 인덱스 조회 함수로 바꿔 처리한다. 서브쿼리가 기본키를 찾으면 `unique_subquery`, 일반 인덱스를 찾으면 `index_subquery`다.
 
-## 7 실행 시간을 비교할 때 주의할 점
+## 7. 실행 시간을 비교할 때 주의할 점
 
 `type`이 바뀐 효과를 실행 시간으로 확인할 때는 **클라이언트 도구가 결과 행 수를 자동으로 제한하지 않는지** 확인한다. 예를 들어 MySQL Workbench는 기본으로 결과를 1,000행까지만 가져오므로, 전체를 읽는 쿼리도 빨리 끝난 것처럼 보일 수 있다. 정확히 비교하려면 이 제한을 끄거나, 쿼리를 실제로 끝까지 실행해 단계별 시간을 보여 주는 `EXPLAIN ANALYZE`(섹션 5)를 쓴다. [EXPLAIN ANALYZE](https://dev.mysql.com/doc/refman/8.4/en/explain.html#explain-analyze)
 
