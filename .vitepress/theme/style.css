@@ -70,6 +70,8 @@ body { word-break: keep-all; overflow-wrap: break-word; }
   html.sidebar-hidden .VPDoc.has-sidebar .container { max-width: 992px; }
   html.sidebar-hidden .VPNavBar.has-sidebar .container > .title { background: var(--vp-nav-bg-color); }
   html.sidebar-hidden .VPNavBar.has-sidebar .divider { padding-left: 0; }
+  /* 스크롤바가 보이는 넓은 화면에서는 제목 영역과 검색 영역 배경 사이에 틈이 생긴다. 펼친 사이드바가 가리던 틈을 상단 바 배경으로 채운다 */
+  html.sidebar-hidden .VPNavBar.has-sidebar .content { background: var(--vp-nav-bg-color); }
 }
 @media (min-width: 1440px) {
   html.sidebar-hidden .VPDoc.has-sidebar .container { max-width: 1104px; }
