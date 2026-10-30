@@ -16,6 +16,7 @@ dev.study.commerce
 ├── display        전시 실습 시작 위치
 ├── ranking        랭킹 실습 시작 위치
 ├── search         검색 실습 시작 위치
+├── point          적립금 원장·사용·사용 취소 실습
 └── shared         인증 설정과 공통 HTTP 오류 처리
 ```
 
