@@ -3,6 +3,7 @@ package dev.study.commerce.point.application;
 import dev.study.commerce.point.domain.*;
 import dev.study.commerce.point.infrastructure.*;
 import java.time.Instant;
+import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,21 +40,24 @@ public class PointService {
     }
 
     @Transactional
-    public long use(long memberId, long orderId, long amount) {
+    public long use(long memberId, UUID paymentAttemptId, long orderId, long amount) {
         Instant baseAt = Instant.now();
         if (amount <= 0) {
             throw new IllegalArgumentException("사용 금액을 확인해 주세요.");
         }
         PointWallet wallet = wallets.findForUpdate(memberId)
                 .orElseThrow(() -> new IllegalStateException("적립금이 부족합니다."));
-        // 같은 주문의 재요청이면 처음 결과를 돌려준다. 지갑을 잠근 뒤라 같은 회원의 요청끼리는 겹치지 않는다.
-        var used = transactions.findByOrderIdAndType(orderId, PointTransactionType.USE);
+        // 같은 결제 시도의 재요청이면 처음 결과를 돌려준다. 지갑을 잠근 뒤라 같은 회원의 요청끼리는 겹치지 않는다.
+        var used = transactions.findByPaymentAttemptIdAndType(paymentAttemptId, PointTransactionType.USE);
         if (used.isPresent()) {
+            if (used.get().getAmount() != -amount) {
+                throw new IllegalArgumentException("같은 결제 시도 키로 다른 금액이 요청되었습니다.");
+            }
             return used.get().getId();
         }
         wallet.subtract(amount);
 
-        PointTransaction use = transactions.save(PointTransaction.use(memberId, amount, orderId, baseAt));
+        PointTransaction use = transactions.save(PointTransaction.use(memberId, amount, orderId, paymentAttemptId, baseAt));
         long left = amount;
         for (PointEarning earning : earnings.findUsable(memberId)) {
             long taken = earning.take(left);
@@ -67,10 +71,10 @@ public class PointService {
     }
 
     @Transactional
-    public long cancelUse(long orderId) {
+    public long cancelUse(UUID paymentAttemptId) {
         Instant baseAt = Instant.now();
-        PointTransaction use = transactions.findByOrderIdAndType(orderId, PointTransactionType.USE)
-                .orElseThrow(() -> new IllegalArgumentException("적립금을 사용한 주문이 없습니다."));
+        PointTransaction use = transactions.findByPaymentAttemptIdAndType(paymentAttemptId, PointTransactionType.USE)
+                .orElseThrow(() -> new IllegalArgumentException("적립금을 사용한 결제 시도가 없습니다."));
         PointWallet wallet = wallets.findForUpdate(use.getMemberId()).orElseThrow();
         var canceled = transactions.findByOriginTransactionId(use.getId());
         if (canceled.isPresent()) {

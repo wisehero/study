@@ -5,6 +5,7 @@ import dev.study.commerce.point.domain.EarningSource;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.AfterEach;
@@ -45,7 +46,7 @@ class PointServiceTest {
         long later = earn(1_000, 60);
         long sooner = earn(1_000, 30);
 
-        points.use(MEMBER, 100L, 1_500);
+        points.use(MEMBER, UUID.randomUUID(), 100L, 1_500);
 
         assertThat(remaining(sooner)).isZero();
         assertThat(remaining(later)).isEqualTo(500);
@@ -59,7 +60,7 @@ class PointServiceTest {
     void insufficientBalanceChangesNothing() {
         earn(1_000, 30);
 
-        assertThatThrownBy(() -> points.use(MEMBER, 100L, 1_500))
+        assertThatThrownBy(() -> points.use(MEMBER, UUID.randomUUID(), 100L, 1_500))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessage("적립금이 부족합니다.");
 
@@ -72,10 +73,11 @@ class PointServiceTest {
     void cancelRestoresEarningsOnce() {
         long sooner = earn(1_000, 30);
         long later = earn(1_000, 60);
-        points.use(MEMBER, 100L, 1_500);
+        UUID attempt = UUID.randomUUID();
+        points.use(MEMBER, attempt, 100L, 1_500);
 
-        long first = points.cancelUse(100L);
-        long second = points.cancelUse(100L);
+        long first = points.cancelUse(attempt);
+        long second = points.cancelUse(attempt);
 
         assertThat(second).isEqualTo(first);
         assertThat(remaining(sooner)).isEqualTo(1_000);
@@ -84,15 +86,18 @@ class PointServiceTest {
     }
 
     @Test
-    @DisplayName("4. 중복 요청: 같은 주문으로 두 번 사용해도 한 번만 차감한다")
-    void sameOrderIsUsedOnce() {
+    @DisplayName("4. 중복 요청: 같은 결제 시도 키로 두 번 사용해도 한 번만 차감한다")
+    void sameAttemptIsUsedOnce() {
         earn(1_000, 30);
+        UUID attempt = UUID.randomUUID();
 
-        long first = points.use(MEMBER, 100L, 800);
-        long second = points.use(MEMBER, 100L, 800);
+        long first = points.use(MEMBER, attempt, 100L, 800);
+        long second = points.use(MEMBER, attempt, 100L, 800);
 
         assertThat(second).isEqualTo(first);
         assertThat(balance()).isEqualTo(200);
+        assertThatThrownBy(() -> points.use(MEMBER, attempt, 100L, 500))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -111,7 +116,7 @@ class PointServiceTest {
                 futures.add(executor.submit(() -> {
                     start.await();
                     try {
-                        points.use(MEMBER, orderId, 800);
+                        points.use(MEMBER, UUID.randomUUID(), orderId, 800);
                         succeeded.incrementAndGet();
                     } catch (IllegalStateException insufficient) {
                         failed.incrementAndGet();
@@ -127,6 +132,19 @@ class PointServiceTest {
 
         assertThat(succeeded).hasValue(1);
         assertThat(failed).hasValue(requests - 1);
+        assertThat(balance()).isEqualTo(200);
+    }
+
+    @Test
+    @DisplayName("6. 재결제: PG 실패로 사용을 취소한 주문을 다시 결제하면 다시 차감한다")
+    void retryAfterCanceledUseDeductsAgain() {
+        earn(1_000, 30);
+        UUID failedAttempt = UUID.randomUUID();
+        points.use(MEMBER, failedAttempt, 100L, 800);
+        points.cancelUse(failedAttempt);
+
+        points.use(MEMBER, UUID.randomUUID(), 100L, 800);
+
         assertThat(balance()).isEqualTo(200);
     }
 
