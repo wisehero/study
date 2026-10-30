@@ -2,7 +2,7 @@
 
 Redis는 메모리에 데이터를 유지하고, 네트워크로 받은 명령으로 데이터를 읽고 변경하는 서버다. 이번 장에서는 **데이터를 어디에 두는지, 여러 요청을 어떻게 처리하는지, 그래서 왜 빠른지**를 연결해 이해한다. [Redis 소개](https://redis.io/tutorials/what-is-redis/)
 
-## 1 In-memory DB의 의미
+## 1. In-memory DB의 의미
 
 **In-memory DB는 실제로 읽고 변경하는 데이터를 RAM에 유지하는 DB다.** Redis의 `GET product:100`은 Redis 프로세스가 관리하는 메모리에서 키를 찾아 값을 읽는다. 앱의 메모리와 Redis의 메모리는 별개이며, 앱은 네트워크를 통해 접근한다. [Redis 소개](https://redis.io/tutorials/what-is-redis/)
 
@@ -25,7 +25,7 @@ RAM과 저장장치는 하드웨어와 접근 경로가 다르다. RAM에 이미
 
 다만 파일을 읽을 때마다 실제 디스크를 읽는 것은 아니다. 운영체제는 파일 데이터를 **페이지 캐시**라는 메모리 공간에 보관해 반복 읽기의 디스크 접근을 줄인다. 관계형 DB도 자체 메모리 버퍼를 사용한다. 따라서 Redis와 관계형 DB의 성능 차이를 메모리와 디스크의 차이 하나로만 설명할 수는 없다. [Linux 페이지 캐시](https://www.kernel.org/doc/html/latest/admin-guide/mm/concepts.html#page-cache), [PostgreSQL 공유 버퍼](https://www.postgresql.org/docs/current/runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY)
 
-## 2 Single-threaded의 의미
+## 2. Single-threaded의 의미
 
 Redis OSS의 기본 구조에서 **한 인스턴스의 일반적인 명령은 주 스레드 하나가 순차적으로 실행한다.** 여러 클라이언트가 동시에 연결하고 요청을 보내도, 일반 명령의 실행은 하나씩 진행된다. [Redis 실행 구조](https://redis.io/docs/latest/operate/oss_and_stack/management/optimization/latency/#single-threaded-nature-of-redis)
 
@@ -62,7 +62,7 @@ A의 GET → B의 GET → A의 SET → B의 SET
 
 두 요청이 같은 값 10을 읽고 각각 11을 저장하면 최종값은 11이다. 반면 `INCR`은 읽기와 증가를 하나의 원자적 명령으로 수행하므로 두 번 실행하면 12가 된다. **개별 명령의 순차 실행이 앱의 여러 단계 작업 전체를 보호하지는 않는다.** [Redis 동시 갱신 예제](https://redis.io/docs/latest/develop/using-commands/transactions/#optimistic-locking-using-check-and-set), [INCR](https://redis.io/docs/latest/commands/incr/)
 
-## 3 이벤트 루프와 I/O 멀티플렉싱
+## 3. 이벤트 루프와 I/O 멀티플렉싱
 
 여기서 I/O는 네트워크 연결의 데이터를 읽거나 쓰는 작업이다. Redis가 연결 A에서 데이터가 올 때까지 기다리면, 이미 요청을 보낸 B와 C를 처리하지 못할 수 있다. Redis는 여러 연결을 효율적으로 다루기 위해 논블로킹 I/O와 I/O 멀티플렉싱을 사용한다. [Redis 연결 처리](https://redis.io/docs/latest/develop/reference/clients/)
 
@@ -86,7 +86,7 @@ A의 GET → B의 GET → A의 SET → B의 SET
 
 아무 이벤트도 없으면 `epoll_wait` 같은 기능으로 다음 이벤트까지 대기할 수 있다. CPU를 쓰면서 모든 연결을 계속 확인해야 하는 것은 아니다. **특정 연결 하나의 데이터를 기다리는 것과, 여러 연결 중 어느 것이든 준비되기를 기다리는 것은 다르다.** [epoll 이벤트 대기](https://man7.org/linux/man-pages/man7/epoll.7.html)
 
-## 4 Redis 내부의 명령 실행 흐름
+## 4. Redis 내부의 명령 실행 흐름
 
 앱이 `GET product:100`을 호출하면 클라이언트 라이브러리는 명령을 **RESP라는 Redis 통신 형식**으로 전송한다. Redis는 받은 데이터를 해석해 명령을 실행하고, 결과도 RESP 형식으로 반환한다. [Redis 프로토콜](https://redis.io/docs/latest/develop/reference/protocol-spec/)
 
@@ -102,7 +102,7 @@ flowchart TD
 
 이 그림은 일반적인 흐름을 단순화한 것이다. 연결 관리와 입력·출력 버퍼는 여러 클라이언트를 처리하는 데 사용된다. **여러 연결의 I/O를 다루는 방식과 명령 실행의 병렬 여부는 구분해야 한다.** [Redis 연결 처리](https://redis.io/docs/latest/develop/reference/clients/)
 
-## 5 Redis가 빠른 이유와 느려지는 조건
+## 5. Redis가 빠른 이유와 느려지는 조건
 
 Redis는 기본 데이터 접근을 메모리에서 수행하고, 자료구조에 맞는 명령으로 작업을 처리한다. 예를 들어 `GET`의 키 조회는 시간 복잡도가 O(1)이다. 일반 명령을 한 스레드에서 실행하면 실행 스레드끼리 같은 데이터를 두고 경쟁하는 락 비용을 줄일 수 있다. 네트워크 연결은 이벤트 방식으로 처리하므로 특정 연결의 입력을 기다리며 전체 처리를 멈추지 않는다. [GET](https://redis.io/docs/latest/commands/get/), [Redis 소개](https://redis.io/tutorials/what-is-redis/), [Redis 지연과 실행 구조](https://redis.io/docs/latest/operate/oss_and_stack/management/optimization/latency/)
 

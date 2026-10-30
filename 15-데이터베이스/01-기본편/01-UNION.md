@@ -15,7 +15,7 @@ CREATE TABLE orders (
 CREATE TABLE orders_archive LIKE orders;
 ```
 
-## 1 UNION: 여러 조회 결과를 하나로
+## 1. UNION: 여러 조회 결과를 하나로
 
 **UNION은 두 개 이상의 SELECT 결과를 하나의 결과로 합치고, 중복 행은 하나만 남긴다.** 회원 한 명의 주문을 올해와 지난해 구분 없이 보고 싶다면 두 테이블을 각각 조회해 합친다. [집합 연산](https://dev.mysql.com/doc/refman/8.4/en/set-operations.html)
 
@@ -35,7 +35,7 @@ SELECT order_id, total_price, ordered_at FROM orders_archive WHERE member_id = 7
 
 MySQL 8.4는 UNION 말고도 두 결과에 모두 있는 행만 남기는 INTERSECT와, 첫 결과에서 두 번째 결과를 빼는 EXCEPT를 지원한다. 오라클의 MINUS는 지원하지 않는다. [집합 연산](https://dev.mysql.com/doc/refman/8.4/en/set-operations.html)
 
-## 2 UNION ALL: 중복을 지우지 않고 그대로
+## 2. UNION ALL: 중복을 지우지 않고 그대로
 
 **UNION ALL은 중복을 지우지 않고 모든 행을 그대로 이어 붙인다.** UNION 뒤에 아무것도 쓰지 않으면 `UNION DISTINCT`와 같아서 중복이 지워진다. [DISTINCT와 ALL](https://dev.mysql.com/doc/refman/8.4/en/set-operations.html#set-operations-distinct-all)
 
@@ -60,7 +60,7 @@ SELECT email FROM review_event_entry;
 
 한 문장에 UNION과 UNION ALL을 섞으면, **DISTINCT 쪽 UNION이 자기 왼쪽에 있는 UNION ALL의 효과를 덮어쓴다.** 섞어 쓰면 결과를 예상하기 어려우므로 한 문장에서는 한 가지로 통일하는 편이 낫다. [DISTINCT와 ALL](https://dev.mysql.com/doc/refman/8.4/en/set-operations.html#set-operations-distinct-all)
 
-## 3 UNION 정렬
+## 3. UNION 정렬
 
 **UNION 결과 전체를 정렬하려면 ORDER BY를 마지막 SELECT 뒤에 한 번만 쓴다.** 이 ORDER BY는 마지막 SELECT가 아니라 합친 결과 전체에 적용된다. [ORDER BY와 LIMIT](https://dev.mysql.com/doc/refman/8.4/en/set-operations.html#set-operations-order-by-limit)
 

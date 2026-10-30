@@ -2,7 +2,7 @@
 
 MySQL 서버는 크게 **SQL을 해석하고 실행 방법을 정하는 MySQL 엔진**과 **실제로 데이터를 저장하고 읽는 스토리지 엔진**으로 나뉜다. 이번 장에서는 두 계층이 하는 일과, 앱의 연결 하나가 서버 안에서 어떻게 다뤄지는지를 정리한다. 강의 섹션 3의 12강에 해당한다.
 
-## 1 MySQL 엔진과 스토리지 엔진
+## 1. MySQL 엔진과 스토리지 엔진
 
 **MySQL 엔진은 "무엇을 어떤 순서로 읽을지" 정하고, 스토리지 엔진은 "실제로 읽고 쓰는" 일을 한다.** 연결 관리, SQL 해석, 실행 계획 수립처럼 모든 테이블에 공통인 기능은 MySQL 엔진이 맡는다. 데이터를 디스크와 메모리에 어떤 형태로 저장할지는 스토리지 엔진이 맡는다. [MySQL 스토리지 엔진 구조](https://dev.mysql.com/doc/refman/8.4/en/pluggable-storage-overview.html)
 
@@ -23,7 +23,7 @@ SHOW SESSION STATUS LIKE 'Handler_read%';
 
 공식 문서는 `Handler_read_rnd_next` 값이 크면 테이블 스캔이 많다는 뜻이고, 인덱스가 맞지 않을 가능성이 있다고 설명한다. **쿼리 실행 전후로 이 값을 비교하면 스토리지 엔진에 몇 번 행을 요청했는지 숫자로 볼 수 있다.**
 
-## 2 MySQL 엔진의 구성 요소
+## 2. MySQL 엔진의 구성 요소
 
 | 구성 요소 | 하는 일 |
 | --- | --- |
@@ -34,7 +34,7 @@ SHOW SESSION STATUS LIKE 'Handler_read%';
 
 **인덱스를 어떻게 쓸지는 옵티마이저가 정하지만, 인덱스 자체는 스토리지 엔진이 관리한다.** 이 구분은 섹션 10의 ICP(Index Condition Pushdown)를 이해할 때 다시 필요하다. 쿼리 한 건이 이 단계를 거치는 과정은 15강 쿼리 실행 흐름에서 이어서 다룬다.
 
-## 3 연결과 스레드
+## 3. 연결과 스레드
 
 MySQL은 클라이언트 연결마다 전용 스레드를 하나 배정한다. 이 스레드가 해당 연결의 인증과 요청 처리를 맡는다. 연결이 끝난 스레드는 바로 없애지 않고 **스레드 캐시**에 보관했다가 다음 연결에 다시 쓴다. 캐시 크기는 `thread_cache_size`로 정한다. [MySQL 연결 처리](https://dev.mysql.com/doc/refman/8.4/en/connection-interfaces.html)
 
@@ -55,7 +55,7 @@ MySQL이 받아 주는 동시 연결 수는 `max_connections`로 제한되며 �
 
 연결이 아주 많을 때 스레드를 공유해 처리하는 스레드 풀은 MySQL 상용판(Enterprise Edition)의 기능이다. 커뮤니티판의 기본 방식은 연결당 스레드다. [MySQL Enterprise 스레드 풀](https://dev.mysql.com/doc/refman/8.4/en/thread-pool.html)
 
-## 4 스토리지 엔진 확인과 InnoDB
+## 4. 스토리지 엔진 확인과 InnoDB
 
 ```sql
 SHOW ENGINES;
@@ -65,7 +65,7 @@ SHOW ENGINES;
 
 스토리지 엔진은 테이블마다 정해진다. 그래서 **같은 SQL이라도 테이블의 스토리지 엔진에 따라 저장 방식과 성능 특성이 달라진다.** InnoDB의 내부 구조는 13강에서 다룬다.
 
-## 5 사라진 쿼리 캐시
+## 5. 사라진 쿼리 캐시
 
 MySQL 5.7까지는 같은 SELECT 문의 결과를 저장해 두고 재사용하는 **쿼리 캐시**가 있었다. 8.0에서 이 기능이 제거되었다. [MySQL 8.0 변경 사항](https://dev.mysql.com/doc/refman/8.0/en/mysql-nutshell.html)
 

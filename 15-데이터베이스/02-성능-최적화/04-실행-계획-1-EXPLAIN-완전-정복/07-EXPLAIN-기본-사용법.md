@@ -2,7 +2,7 @@
 
 6장에서 실행 계획을 먼저 봐야 하는 이유를 정리했다. 이번 장에서는 **`EXPLAIN`을 실행하는 방법, 출력 12개 컬럼을 묶어서 읽는 방법, 결과 행의 순서와 쿼리 구조를 해석하는 방법**을 정리한다. 각 컬럼의 자세한 값은 다음 강부터 하나씩 다룬다. 강의 섹션 4의 18강에 해당한다.
 
-## 1 실행 방법
+## 1. 실행 방법
 
 분석할 문장 앞에 `EXPLAIN`을 붙인다. `DESCRIBE`(`DESC`)도 같은 명령이지만, 보통 `DESC`는 테이블 구조를 볼 때, `EXPLAIN`은 실행 계획을 볼 때 쓴다. [EXPLAIN](https://dev.mysql.com/doc/refman/8.4/en/explain.html)
 
@@ -16,7 +16,7 @@ WHERE m.grade = 'VIP';
 
 `SELECT`뿐 아니라 `UPDATE`, `DELETE`, `INSERT`, `REPLACE`, `TABLE` 문에도 쓸 수 있다. **변경 문장도 `EXPLAIN`만 붙이면 실제로 데이터를 바꾸지 않고 계획만 본다.** 대량 `UPDATE`를 돌리기 전에 어떤 인덱스로 대상을 찾는지 확인할 때 유용하다.
 
-## 2 출력 12개 컬럼을 묶어서 읽기
+## 2. 출력 12개 컬럼을 묶어서 읽기
 
 `EXPLAIN`은 쿼리에 쓰인 테이블마다 한 행씩, 12개 컬럼으로 결과를 보여 준다. [EXPLAIN 출력 형식](https://dev.mysql.com/doc/refman/8.4/en/explain-output.html) 왼쪽부터 하나씩 읽기보다 **무엇을 알려 주는지에 따라 다섯 묶음으로 나눠 순서대로 읽으면** 판단이 빨라진다.
 
@@ -34,7 +34,7 @@ WHERE m.grade = 'VIP';
 
 **`rows × filtered`가 다음 테이블과 조인될 행 수의 추정치다.** 예를 들어 `rows`가 1000이고 `filtered`가 50.00이면 다음 테이블로 넘어가는 행은 약 500개다. [EXPLAIN 출력 형식](https://dev.mysql.com/doc/refman/8.4/en/explain-output.html) 조인이 여러 단계면 각 단계의 행 수가 곱해지듯 늘어나므로, 앞쪽 테이블에서 행을 많이 줄일수록 전체 작업량이 줄어든다. 다만 모두 추정값이므로 실제 수치는 `EXPLAIN ANALYZE`(섹션 5)로 확인한다.
 
-## 3 결과 행의 순서와 쿼리 구조
+## 3. 결과 행의 순서와 쿼리 구조
 
 ### 행의 순서는 읽는 순서다
 
@@ -56,7 +56,7 @@ WHERE m.grade = 'VIP';
 
 `table` 컬럼에는 실제 테이블 이름 대신 `<derivedN>`, `<subqueryN>`, `<unionM,N>`처럼 나올 때가 있다. `id`가 N인 행에서 만든 파생 테이블, 구체화된 서브쿼리, `UNION` 결과를 가리킨다.
 
-## 4 옵티마이저가 고쳐 쓴 쿼리 보기
+## 4. 옵티마이저가 고쳐 쓴 쿼리 보기
 
 옵티마이저는 작성한 SQL을 그대로 실행하지 않고 더 처리하기 좋은 형태로 바꾸기도 한다. 예를 들어 `IN` 서브쿼리를 조인처럼 처리하는 세미조인으로 바꾸면, 서브쿼리였던 테이블이 바깥 쿼리와 같은 `id`로 나오고 `select_type`도 `SIMPLE`이 될 수 있다. [세미조인 최적화](https://dev.mysql.com/doc/refman/8.4/en/semijoins.html)
 
@@ -72,7 +72,7 @@ SHOW WARNINGS;
 
 결과의 `Message`에 나오는 문장은 실행 가능한 SQL이 아니라, 옵티마이저가 쿼리를 어떻게 이해했는지 보여 주는 설명용 표현이다. 작성한 쿼리와 실행 계획이 예상과 다를 때 원인을 찾는 단서로 쓴다.
 
-## 5 출력 형식
+## 5. 출력 형식
 
 `FORMAT` 옵션으로 출력 형식을 고른다. [EXPLAIN 형식](https://dev.mysql.com/doc/refman/8.4/en/explain.html)
 
