@@ -111,6 +111,6 @@ Spring이 생성과 의존성 연결을 관리하는 객체를 **빈**(bean)이�
 3. INSERT 실행과 커밋 완료는 어떻게 다른가?
 4. 재고 부족 예외를 던지는 경우와 잡고 `false`를 반환하는 경우에 결과가 다른 이유는 무엇인가?
 
-다음 순서는 [첫 실습 학습 노트](학습%20노트.md) → [실습 테스트](../spring-lab/src/test/java/dev/study/commerce/OrderTransactionTest.java)다. 이 문서는 개념 설명이며, 문서 작성만으로 직접 실습과 학습 확인을 완료 처리하지 않는다.
+다음 순서는 [첫 실습 학습 노트](학습%20노트.md) → [실습 테스트](../spring-lab/src/test/java/dev/study/commerce/OrderTransactionTest.java)다. 내부 흐름, 전파, 롤백 판단은 [심화 동작 원리](Transactional%20심화%20동작%20원리.md)에서 이어진다. 이 문서는 개념 설명이며, 문서 작성만으로 직접 실습과 학습 확인을 완료 처리하지 않는다.
 
 [트랜잭션 공부 목표로 돌아가기](공부%20목표.md)
