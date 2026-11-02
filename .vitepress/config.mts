@@ -41,6 +41,8 @@ export default defineConfig({
   },
   markdown: {
     html: false,
+    // 기본 테마는 Java 변수와 타입을 대부분 본문색으로 그려 코드가 잘 구분되지 않는다.
+    theme: { light: 'light-plus', dark: 'dark-plus' },
     config(md) {
       // Markdown 본문은 유지하고, 웹에서 코드 파일 링크를 GitHub로 연결한다.
       md.core.ruler.after('inline', 'source-links', state => {
